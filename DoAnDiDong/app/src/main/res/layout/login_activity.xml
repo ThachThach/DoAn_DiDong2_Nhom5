@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/wheat"
+    android:background="@drawable/background"
     >
 
 
@@ -17,9 +17,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="cursive"
             android:gravity="center"
             android:text="Welcome to"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/white"
             android:textSize="30dp" />
 
         <TextView
@@ -32,22 +33,21 @@
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:hint=" Enter Username"
-            android:textColorHint="@color/colorAccent">
-
+            android:hint="Email">
 
             <EditText
-                android:id="@+id/editemail"
+                android:id="@+id/edtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:drawablePadding="5dp"
+                android:inputType="textEmailAddress"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textSize="15dp" />
@@ -93,7 +93,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/login_title"
+            android:id="@+id/registrationOfLogin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -101,9 +101,10 @@
             android:layout_marginRight="20dp"
             android:gravity="right"
             android:text="registration"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
 

@@ -9,7 +9,6 @@
         
         app:showAsAction="always"
         />
-
     <item
         android:id="@+id/icon_nofity"
 

@@ -1,0 +1,71 @@
+package com.example.doandidong;
+
+import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.doandidong.setting.CustomArrayAdapter;
+import com.example.doandidong.setting.Setting;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+
+public class SettingActivity extends AppCompatActivity {
+
+    private ListView listViewSetting;
+    private ArrayList<Setting> arraySetting;
+    private CustomArrayAdapter customArrayAdapter;
+    Intent intent;
+
+    private String NHOM_SAN_PHAM = "Nhóm sản phẩm";
+    private String SAN_PHAM = "Sản phẩm";
+    private String SO_DO = "Sơ đồ phòng, bàn";
+    private String QL_NHAN_VIEN = "Quản lý nhân viên";
+    private String DANG_XUAT = "Đăng xuất";
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.settings_activity);
+
+        listViewSetting = (ListView)findViewById(R.id.lvSetting);
+        arraySetting = new ArrayList<>();
+        arraySetting.add(new Setting(NHOM_SAN_PHAM, R.drawable.nhomsanpham));
+        arraySetting.add(new Setting(SAN_PHAM, R.drawable.sanpham));
+        arraySetting.add(new Setting(SO_DO, R.drawable.phongban));
+        arraySetting.add(new Setting(QL_NHAN_VIEN, R.drawable.nhanvien));
+        arraySetting.add(new Setting(DANG_XUAT, R.drawable.logout));
+
+        customArrayAdapter = new CustomArrayAdapter(this, R.layout.item_setting, arraySetting);
+        listViewSetting.setAdapter(customArrayAdapter);
+
+        listViewSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position==4){
+                    //FirebaseAuth.getInstance().signOut();
+
+                    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+
+                    mFirebaseUser = null;
+                    intent = new Intent(SettingActivity.this, LoginActivity.class);
+                    //intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        });
+
+    }
+}
