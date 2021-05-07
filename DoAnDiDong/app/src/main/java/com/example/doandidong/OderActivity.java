@@ -1,11 +1,13 @@
 package com.example.doandidong;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,8 +19,14 @@ import com.example.doandidong.adapte.RecyclerViewAdapterOder;
 import com.example.doandidong.data.DanhSachSanPhamOder;
 import com.example.doandidong.data.SanPham;
 import com.example.doandidong.data.SanPhamOder;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,6 +59,7 @@ public class OderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oder);
+
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mFirebaseDatabase = mFirebaseInstance.getReference("bepbar");
 
@@ -114,6 +123,8 @@ public class OderActivity extends AppCompatActivity {
                 }
             }
         });
+
+        DatabaseReference all = FirebaseDatabase.getInstance().getReference();
     }
 
     private void OderNew(String ban, String khuVuc){
@@ -125,9 +136,8 @@ public class OderActivity extends AppCompatActivity {
             mFirebaseDatabase.child(id).child(KHU_VUC).setValue(danhSachSanPhamOder1.getKhuVuc());
             mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
             for(int i =0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
-                if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong()>0) {
+                if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
                     String id2 = mFirebaseDatabase.push().getKey();
-                    //mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(TEN_SAN_PHAM).setValue(danhSachSanPhamOder1.getListSP().get(i).getTenSP());
                     mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
                 }
             }
@@ -139,4 +149,47 @@ public class OderActivity extends AppCompatActivity {
 
         return null;
     }
+
+    private String getDataBepBerRealTime(String ban, String khuVuc, String tenSanPham){
+        final String[] key = {""};
+        mFirebaseDatabase.child(ban+"_"+khuVuc).child(DANH_SACH_ODER).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    key[0] = task.getResult().child(tenSanPham).child(SO_LUONG).getValue().toString();
+                }
+            }
+        });
+        return key[0];
+    }
+
+    private  void removeSanPhamBepBar(String ban, String khuVuc, String key, String tenSanPham){
+        mFirebaseDatabase.child(ban+"_"+khuVuc).child(DANH_SACH_ODER).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    if (Integer.parseInt(task.getResult().child(tenSanPham).child(SO_LUONG).getValue()+"") == 0){
+                        mFirebaseInstance.getInstance().getReference("bepbar").child(DANH_SACH_ODER).child(tenSanPham).removeValue();
+
+                    }
+                }
+            }
+        });
+    }
 }
+
+/* int finalI = i;
+                mFirebaseDatabase.child(ban+"_"+khuVuc).child(DANH_SACH_ODER).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.isSuccessful()) {
+                           String key = task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue().toString();
+
+                            if (Integer.parseInt(task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue()+"") == 0){
+                                mFirebaseInstance.getInstance().getReference("bepbar").child(DANH_SACH_ODER).child(key).removeValue();
+                            }
+                        }
+                    }
+                });*/
+
+//removeSanPhamBepBar(ban, khuVuc, key,danhSachSanPhamOder1.getListSP().get(i).getTenSP());
