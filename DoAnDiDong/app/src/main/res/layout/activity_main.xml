@@ -24,14 +24,14 @@
             android:background="@mipmap/banhang">
         </ImageButton>
 
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
 
-                android:background="@mipmap/bep">
+            android:background="@mipmap/bep">
 
-            </ImageButton>
+        </ImageButton>
 
     </LinearLayout>
     <LinearLayout
@@ -63,6 +63,7 @@
         android:layout_height="match_parent"
         android:layout_weight="2">
         <ImageButton
+            android:id="@+id/btnCaiDat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

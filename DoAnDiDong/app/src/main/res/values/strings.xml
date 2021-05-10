@@ -1,4 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pos App</string>
-    
+    <string name="app_name">DoAnDiDong</string>
+    <string name="tenmonSP">Tên món</string>
+    <string name="donvimonSP">Đơn vị tính</string>
+    <string name="nhomSP">Nhóm</string>
+    <string name="loaiSP">Loại</string>
+    <string name="titleSP">Sản phẩm mặc định</string>
+    <string name="giabanSP">Giá bán lẽ</string>
+    <string name="vonSP">Vốn</string>
+    <string name="maSP">Mã sản phẩm</string>
+    <string name="hintSo">0</string>
+    <string name="buttonLuu">Lưu</string>
 </resources>
