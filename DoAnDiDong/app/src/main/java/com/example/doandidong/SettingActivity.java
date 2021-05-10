@@ -1,13 +1,10 @@
 package com.example.doandidong;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.doandidong.setting.CustomArrayAdapter;
 import com.example.doandidong.setting.Setting;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -24,7 +20,6 @@ public class SettingActivity extends AppCompatActivity {
     private ListView listViewSetting;
     private ArrayList<Setting> arraySetting;
     private CustomArrayAdapter customArrayAdapter;
-    Intent intent;
 
     private String NHOM_SAN_PHAM = "Nhóm sản phẩm";
     private String SAN_PHAM = "Sản phẩm";
@@ -52,15 +47,12 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==4){
-                    //FirebaseAuth.getInstance().signOut();
+                    FirebaseAuth.getInstance().signOut();
 
-                    FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-                    FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-
-                    mFirebaseUser = null;
-                    intent = new Intent(SettingActivity.this, LoginActivity.class);
-                    //intentMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                     finish();
                 }

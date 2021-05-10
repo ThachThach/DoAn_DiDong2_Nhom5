@@ -44,8 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    int i = 0;
+
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        i++;
+        if(i==2){
+            finishAffinity();
+            System.exit(0);
+        }
     }
 }
