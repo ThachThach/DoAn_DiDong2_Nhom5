@@ -2,14 +2,14 @@ package com.example.doandidong.data;
 
 public class Admin {
     private String email;
-    private String userLevel;
+    private String admin;
 
     public Admin() {
     }
 
     public Admin(String email, String admin) {
         this.email = email;
-        this.userLevel = admin;
+        this.admin = admin;
     }
 
     public String getEmail() {
@@ -20,11 +20,11 @@ public class Admin {
         this.email = email;
     }
 
-    public String getUserLevel() {
-        return userLevel;
+    public String getAdmin() {
+        return admin;
     }
 
-    public void setUserLevel(String userLevel) {
-        this.userLevel = userLevel;
+    public void setAdmin(String admin) {
+        this.admin = admin;
     }
 }

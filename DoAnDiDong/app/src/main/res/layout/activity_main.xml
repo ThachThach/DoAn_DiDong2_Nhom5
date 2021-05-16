@@ -8,61 +8,63 @@
     android:layout_weight="6"
     android:orientation="vertical">
 
-    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="2"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnBanHang"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
 
             android:layout_weight="1"
 
             android:background="@mipmap/banhang">
-        </ImageButton>
+        </ImageView>
 
-        <ImageButton
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnBepBar"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
 
             android:background="@mipmap/bep">
 
-        </ImageButton>
+        </ImageView>
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="2">
 
-        <ImageButton
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnThanhToanTaiQuay"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
 
             android:background="@mipmap/thanhtoan">
 
-        </ImageButton>
+        </ImageView>
 
-        <ImageButton
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/btnThuChi"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
 
             android:background="@mipmap/thuchi">
 
-        </ImageButton>
+        </ImageView>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="2">
-        <ImageButton
+        <ImageView
             android:id="@+id/btnCaiDat"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -70,7 +72,7 @@
 
             android:background="@mipmap/setting">
 
-        </ImageButton>
+        </ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"

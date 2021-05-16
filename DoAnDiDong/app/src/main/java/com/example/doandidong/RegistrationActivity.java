@@ -15,15 +15,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.data.Admin;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -31,10 +35,11 @@ public class RegistrationActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
     private Button btnRegistration;
     private Intent intent;
-    private static final String userLever = "admin";
+    private static final String admin = "1";
 
     FirebaseAuth mFirebaseAuth;
     DatabaseReference mData;
+    FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class RegistrationActivity extends AppCompatActivity {
         btnRegistration = findViewById(R.id.btnRegstration);
 
         mData = FirebaseDatabase.getInstance().getReference();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference reference = firebaseFirestore.collection("user");
 
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +78,23 @@ public class RegistrationActivity extends AppCompatActivity {
                             if(!task.isSuccessful()){
                                 Toast.makeText(RegistrationActivity.this, "SignUp UnSuccessful, plese Try Again ", Toast.LENGTH_SHORT).show();
                             }else{
-                                Admin user = new Admin(email, userLever);
-                                mData.child("USER").push().setValue(user);
+                                Map<String, Object> userF = new HashMap<>();
+                                Admin user = new Admin(email, admin);
+
+                                userF.put("email", user.getEmail());
+                                userF.put("admin", user.getAdmin());
+                                reference.add(userF).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(RegistrationActivity.this, "success!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(RegistrationActivity.this, "fail!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                                 intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                 startActivity(intent);
                             }

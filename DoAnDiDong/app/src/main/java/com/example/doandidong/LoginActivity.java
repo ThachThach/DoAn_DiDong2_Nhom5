@@ -20,6 +20,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -36,7 +40,9 @@ public class LoginActivity extends AppCompatActivity {
 
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mFirebaseAuth;
+    FirebaseFirestore firebaseFirestore;
     Intent intent;
+
 
     private static final String ADMIN = "admin";
     private static final String USER = "user";
@@ -56,43 +62,25 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
 
-        ArrayList<Admin> admin = new ArrayList<Admin>();
-
-        //
-//        ArrayList<Admin> listUser= new ArrayList<Admin>();
-//        mData.child("USER").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                listUser.clear();
-//                String e = "";
-//                String u = "";
-//                for (DataSnapshot sn : snapshot.getChildren()){
-//                    e = sn.child("email").getValue().toString();
-//                    u = sn.child("userLever").getValue().toString();
-//                    Admin admin = new Admin();
-//                    listUser.add(admin);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        }) ;
-        //
+        ArrayList<Admin> admins = new ArrayList<Admin>();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
                 if (mFirebaseUser != null) {
+                    Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
 
-                    Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    if(kiemTraAdmin == true){
+                        Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }else{
+                        Toast.makeText(LoginActivity.this, "Yes", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         };
@@ -128,9 +116,14 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login Error, Plese login Again!", Toast.LENGTH_LONG).show();
                             } else {
-                                intent = new Intent(LoginActivity.this, MainActivity.class);
-                                Toast.makeText(LoginActivity.this, "Admin", Toast.LENGTH_LONG).show();
-                                startActivity(intent);
+                                Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
+                                if(kiemTraAdmin == true){
+                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    Toast.makeText(LoginActivity.this, "Admin", Toast.LENGTH_LONG).show();
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Yes yes", Toast.LENGTH_LONG).show();
+                                }
                             }
                         }
                     });
@@ -167,5 +160,37 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(startMain);
             finish();
         }
+    }
+
+    public Boolean kiemTraUserAdmin(ArrayList<Admin> admins){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference reference = firebaseFirestore.collection("user");
+        Boolean kiemTra = false;
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot snapshots = task.getResult();
+                    ArrayList<Admin> item = new ArrayList<>();
+                    for(QueryDocumentSnapshot doc : snapshots){
+                        Admin admin = new Admin();
+                        admin.setEmail(doc.get("email").toString());
+                        admin.setAdmin(doc.get("admin").toString());
+                        admins.add(admin);
+                    }
+                }
+            }
+        });
+
+        returnFor: for(Admin ad : admins){
+            if(ad.getEmail().equals(edtEmail.getText().toString())){
+                if (ad.getAdmin().equals("1")){
+                    kiemTra = true;
+                    break returnFor;
+                }
+            }
+        }
+
+        return kiemTra;
     }
 }
