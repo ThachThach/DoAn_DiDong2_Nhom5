@@ -8,7 +8,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="6"
+    android:layout_weight="4"
     android:orientation="vertical">
     <EditText
         android:layout_width="match_parent"
@@ -32,12 +32,25 @@
         </CheckBox>
 
     </LinearLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:text="Vai trò: "
-        android:gravity="center_vertical"></TextView>
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="Vai trò: "
+            android:gravity="center_vertical"></TextView>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Xem vai trò">
+
+        </Button>
+    </LinearLayout>
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -49,17 +62,17 @@
             android:layout_weight="0.22"
             android:orientation="vertical"
             >
-            <CheckBox
+            <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
-                android:text="Quản lý"></CheckBox>
-            <CheckBox
+                android:text="Quản lý"></RadioButton>
+            <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
                 android:text="Phục vụ"
-                ></CheckBox>
+                ></RadioButton>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,23 +80,23 @@
             android:layout_weight="0.22"
             android:orientation="vertical"
             >
-            <CheckBox
+            <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
-                android:text="Thu Ngân"></CheckBox>
-            <CheckBox
+                android:text="Thu Ngân"></RadioButton>
+            <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.1"
-                android:text="Bếp/Bar"></CheckBox>
+                android:text="Bếp/Bar"></RadioButton>
         </LinearLayout>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:text="Thời gian làm việc:"></TextView>
+        android:text="=Thời gian làm việc:"></TextView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -91,13 +104,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.9"
+            android:layout_weight="0.25"
             android:text="Chọn giờ làm"
             ></TextView>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1"></ImageButton>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+
+            android:background="@mipmap/icon_sx"></ImageView>
     </LinearLayout>
 </LinearLayout>
 
@@ -105,7 +119,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="6"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,12 +128,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="3.5">
+            android:layout_weight="2.5">
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Tạo"
-                android:layout_margin="15dp"></Button>
+                android:layout_margin="12dp"></Button>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
