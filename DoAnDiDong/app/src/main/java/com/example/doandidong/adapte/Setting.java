@@ -1,6 +1,4 @@
-package com.example.doandidong.setting;
-
-import android.widget.ImageView;
+package com.example.doandidong.adapte;
 
 public class Setting {
     String name;

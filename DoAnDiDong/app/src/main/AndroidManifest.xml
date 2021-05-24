@@ -11,21 +11,34 @@
         android:theme="@style/Theme.DoAnDiDong">
 
 
-        <activity android:name=".MainActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".SanPhamMoi"></activity>
+        <activity
+            android:name=".BanHangActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".SettingActivity" android:parentActivityName=".MainActivity" android:screenOrientation="portrait">
-            <meta-data android:name="android.layout.PARENT_ACTIVITY" android:value=".MainActivity"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity android:name=".LoginActivity" android:screenOrientation="portrait"><intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter></activity>
-
-        <activity android:name=".RegistrationActivity" android:screenOrientation="portrait"> </activity>
-
-        <activity android:name=".SellActivity" android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".BepBarActivity" android:screenOrientation="portrait"></activity>
-
-        <activity android:name=".ThuChiActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BepBarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.layout.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
 
     </application>
 

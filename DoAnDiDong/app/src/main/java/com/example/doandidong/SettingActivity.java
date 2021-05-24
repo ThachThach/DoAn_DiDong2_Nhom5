@@ -1,25 +1,26 @@
 package com.example.doandidong;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.doandidong.setting.CustomArrayAdapter;
-import com.example.doandidong.setting.Setting;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+
+import com.example.doandidong.adapte.CustomArraySettingAdapter;
+import com.example.doandidong.adapte.Setting;
 
 public class SettingActivity extends AppCompatActivity {
 
     private ListView listViewSetting;
     private ArrayList<Setting> arraySetting;
-    private CustomArrayAdapter customArrayAdapter;
+    private CustomArraySettingAdapter customArrayAdapter;
 
     private String NHOM_SAN_PHAM = "Nhóm sản phẩm";
     private String SAN_PHAM = "Sản phẩm";
@@ -30,7 +31,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_setting);
 
         listViewSetting = (ListView)findViewById(R.id.lvSetting);
         arraySetting = new ArrayList<>();
@@ -40,7 +41,7 @@ public class SettingActivity extends AppCompatActivity {
         arraySetting.add(new Setting(QL_NHAN_VIEN, R.drawable.nhanvien));
         arraySetting.add(new Setting(DANG_XUAT, R.drawable.logout));
 
-        customArrayAdapter = new CustomArrayAdapter(this, R.layout.item_setting, arraySetting);
+        customArrayAdapter = new CustomArraySettingAdapter(this, R.layout.item_setting, arraySetting);
         listViewSetting.setAdapter(customArrayAdapter);
 
         listViewSetting.setOnItemClickListener(new AdapterView.OnItemClickListener() {

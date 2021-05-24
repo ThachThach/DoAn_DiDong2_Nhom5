@@ -1,5 +1,9 @@
 package com.example.doandidong;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.doandidong.data.Admin;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,11 +24,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.ArrayList;
+
+import com.example.doandidong.data.Admin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,11 +43,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String ADMIN = "admin";
     private static final String USER = "user";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_login);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         ArrayList<Admin> admins = new ArrayList<Admin>();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -128,34 +128,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mAuthStateListener != null) {
-            mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
-        }
-    }
-
-    int i = 0;
-
-    @Override
-    public void onBackPressed() {
-        i++;
-        if (i == 2) {
-            Intent startMain = new Intent(Intent.ACTION_MAIN);
-            startMain.addCategory(Intent.CATEGORY_HOME);
-            startActivity(startMain);
-            finish();
-        }
     }
 
     public Boolean kiemTraUserAdmin(ArrayList<Admin> admins){
@@ -188,5 +160,18 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return kiemTra;
+    }
+
+    int i = 0;
+
+    @Override
+    public void onBackPressed() {
+        i++;
+        if (i == 2) {
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startActivity(startMain);
+            finish();
+        }
     }
 }

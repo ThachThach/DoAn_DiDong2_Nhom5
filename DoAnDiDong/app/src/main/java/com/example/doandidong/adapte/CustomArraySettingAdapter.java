@@ -1,4 +1,4 @@
-package com.example.doandidong.setting;
+package com.example.doandidong.adapte;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,20 +7,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.example.doandidong.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.doandidong.R;
-
 import java.util.ArrayList;
 
-public class CustomArrayAdapter extends ArrayAdapter<Setting> {
+public class CustomArraySettingAdapter extends ArrayAdapter<Setting> {
     Context context;
     ArrayList<Setting> arrayList;
     int layoutResource;
 
-    public CustomArrayAdapter(Context context, int resource, ArrayList<Setting> ojects){
+    public CustomArraySettingAdapter(Context context, int resource, ArrayList<Setting> ojects){
         super(context, resource, ojects);
         this.context = context;
         this.arrayList = ojects;
@@ -41,6 +40,4 @@ public class CustomArrayAdapter extends ArrayAdapter<Setting> {
 
         return convertView;
     }
-
-
 }
