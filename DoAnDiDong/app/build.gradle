@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.doandidong"
-        minSdkVersion 16
+        minSdkVersion 26
         multiDexEnabled true
         targetSdkVersion 30
         versionCode 1

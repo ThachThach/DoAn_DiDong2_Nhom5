@@ -1,18 +1,17 @@
 package com.example.doandidong;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.example.doandidong.activiti.Test;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Intent intent;
 
-    //Id activity
     ImageView btnCaiDat, btnBanHang, btnThanhToanTaiQuay, btnBepBar, btnThuChi;
 
     @Override
@@ -22,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         btnBanHang = findViewById(R.id.btnBanHang);
         btnCaiDat = findViewById(R.id.btnCaiDat);
-        btnThanhToanTaiQuay = findViewById(R.id.btnThanhToanTaiQuay);
+        btnThanhToanTaiQuay = findViewById(R.id.btnThanhToan);
         btnThuChi = findViewById(R.id.btnThuChi);
         btnBepBar = findViewById(R.id.btnBepBar);
 
@@ -38,16 +37,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btnCaiDat) {
             intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(intent);
         }else if(v.getId() == R.id.btnBanHang){
             intent = new Intent(MainActivity.this, SellActivity.class);
-        }else if(v.getId() == R.id.btnThanhToanTaiQuay){
-            intent = new Intent(MainActivity.this, ThanhToanTaiQuayActivity.class);
-        }else if(v.getId() == R.id.btnThuChi){
+            startActivity(intent);
+        }else if(v.getId() == R.id.btnThanhToan){
             intent = new Intent(MainActivity.this, SellActivity.class);
+            startActivity(intent);
         }else if(v.getId() == R.id.btnThuChi){
-            intent = new Intent(MainActivity.this, SellActivity.class);
+            intent = new Intent(MainActivity.this, ThuChiActivity.class);
+            startActivity(intent);
+        }else if(v.getId() == R.id.btnBepBar){
+            intent = new Intent(MainActivity.this, Test.class);
+            startActivity(intent);
         }
-        startActivity(intent);
     }
 
     int i = 0;

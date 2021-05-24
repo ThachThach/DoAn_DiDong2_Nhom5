@@ -23,6 +23,10 @@
 
         <activity android:name=".SellActivity" android:screenOrientation="portrait"></activity>
 
+        <activity android:name=".BepBarActivity" android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".ThuChiActivity" android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

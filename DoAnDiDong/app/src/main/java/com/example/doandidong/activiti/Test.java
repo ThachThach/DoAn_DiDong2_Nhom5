@@ -1,15 +1,16 @@
-package com.example.doandidong;
+package com.example.doandidong.activiti;
 
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ThanhToanTaiQuayActivity extends AppCompatActivity {
+import com.example.doandidong.R;
 
+public class Test extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.thanhtoantaiquay_activity);
+        setContentView(R.layout.settings_activity);
     }
 }
