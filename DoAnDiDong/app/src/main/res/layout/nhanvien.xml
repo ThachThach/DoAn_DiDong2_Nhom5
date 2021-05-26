@@ -96,7 +96,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.5"
-        android:text="=Thời gian làm việc:"></TextView>
+        android:text="Thời gian làm việc:"></TextView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
