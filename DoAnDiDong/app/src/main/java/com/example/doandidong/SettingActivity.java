@@ -55,6 +55,9 @@ public class SettingActivity extends AppCompatActivity {
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
+                }else if(position == 3){
+                    Intent intent = new Intent(SettingActivity.this, QuanLyNhanVien.class);
+                    startActivity(intent);
                 }
             }
         });

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnThanhToanTaiQuay = findViewById(R.id.btnThanhToan);
         btnThuChi = findViewById(R.id.btnThuChi);
         btnBepBar = findViewById(R.id.btnBepBar);
-
         btnCaiDat.setOnClickListener(this);
         btnBanHang.setOnClickListener(this);
         btnThanhToanTaiQuay.setOnClickListener(this);
@@ -43,11 +42,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MainActivity.this, BanHangActivity.class);
             startActivity(intent);
         }else if(v.getId() == R.id.btnThuChi){
-            intent = new Intent(MainActivity.this, BanHangActivity.class);
+            intent = new Intent(MainActivity.this, ThuChiActivity.class);
             startActivity(intent);
         }else if(v.getId() == R.id.btnBepBar){
             intent = new Intent(MainActivity.this, BepBarActivity.class);
             startActivity(intent);
+        }
+    }
+
+    int i = 0;
+
+    @Override
+    public void onBackPressed() {
+        i++;
+        if(i==2){
+            finishAffinity();
+            System.exit(0);
         }
     }
 }

@@ -9,9 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnDiDong">
-
-
-        <activity android:name=".SanPhamMoi"></activity>
+        <activity android:name=".ThuChiActivity"></activity>
+        <activity android:name=".ThemNhanVien" />
+        <activity
+            android:name=".QuanLyNhanVien"
+            android:label="@string/title_activity_quan_ly_nhan_vien"
+            android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
+        <activity android:name=".SanPhamMoi" />
         <activity
             android:name=".BanHangActivity"
             android:screenOrientation="portrait" />
@@ -39,7 +43,6 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-
     </application>
 
 </manifest>
