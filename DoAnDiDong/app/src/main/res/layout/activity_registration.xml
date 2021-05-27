@@ -30,6 +30,28 @@
             android:textColor="@color/colorAccent"
             android:textSize="25dp" />
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tenquan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="Tên quán">
+
+            <EditText
+                android:id="@+id/edtTenQuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:drawablePadding="5dp"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/email"

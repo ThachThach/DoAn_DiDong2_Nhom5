@@ -16,6 +16,7 @@
             android:label="@string/title_activity_quan_ly_nhan_vien"
             android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
         <activity android:name=".SanPhamMoi" />
+        <activity android:name=".NhomSanPhamActivity" />
         <activity
             android:name=".BanHangActivity"
             android:screenOrientation="portrait" />

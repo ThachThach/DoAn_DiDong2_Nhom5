@@ -1,20 +1,19 @@
 package com.example.doandidong;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CustomArraySettingAdapter;
 import com.example.doandidong.adapte.Setting;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -57,6 +56,14 @@ public class SettingActivity extends AppCompatActivity {
                     startActivity(intent);
                 }else if(position == 3){
                     Intent intent = new Intent(SettingActivity.this, QuanLyNhanVien.class);
+                    startActivity(intent);
+                }
+                if (position == 0){
+                    Intent intent = new Intent(SettingActivity.this, NhomSanPhamActivity.class);
+                    startActivity(intent);
+                }
+                if (position == 1){
+                    Intent intent = new Intent(SettingActivity.this, BepBarActivity.class);
                     startActivity(intent);
                 }
             }
