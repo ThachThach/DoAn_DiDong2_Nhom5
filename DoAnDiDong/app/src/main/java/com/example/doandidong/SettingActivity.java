@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import com.example.doandidong.adapte.CustomArraySettingAdapter;
 import com.example.doandidong.adapte.Setting;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -27,6 +28,8 @@ public class SettingActivity extends AppCompatActivity {
     private String SO_DO = "Sơ đồ phòng, bàn";
     private String QL_NHAN_VIEN = "Quản lý nhân viên";
     private String DANG_XUAT = "Đăng xuất";
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private FirebaseUser user = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==4){
-                    FirebaseAuth.getInstance().signOut();
+                    mAuth.signOut();
 
                     Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

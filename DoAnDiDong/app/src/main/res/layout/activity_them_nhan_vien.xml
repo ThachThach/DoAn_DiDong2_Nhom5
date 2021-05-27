@@ -11,27 +11,24 @@
         android:layout_weight="4"
         android:orientation="vertical">
         <EditText
+            android:id="@+id/edtTenNhanVien"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:hint="Tên nhân viên"></EditText>
+
         <EditText
+            android:id="@+id/edtEmail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
-            android:hint="Nhập 6 số mã pin"></EditText>
-        <LinearLayout
+            android:hint="Email"></EditText>
+        <EditText
+            android:id="@+id/edtPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tạo tài khoản đăng nhập">
-
-            </CheckBox>
-
-        </LinearLayout>
+            android:layout_weight="0.5"
+            android:hint="password"></EditText>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,47 +48,42 @@
 
             </Button>
         </LinearLayout>
-        <LinearLayout
+
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.44"
-            android:orientation="horizontal">
-            <LinearLayout
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/checkQuanLy"
+                android:checked="true"
+                android:text="Quản Lý"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.22"
-                android:orientation="vertical"
-                >
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:text="Quản lý"></RadioButton>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:text="Phục vụ"
-                    ></RadioButton>
-            </LinearLayout>
-            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/checkThuNgan"
+                android:text="Thu Ngân"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.22"
-                android:orientation="vertical"
-                >
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:text="Thu Ngân"></RadioButton>
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-                    android:text="Bếp/Bar"></RadioButton>
-            </LinearLayout>
-        </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <RadioButton
+                android:id="@+id/checkPhucVu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Phục vụ" />
+
+            <RadioButton
+                android:id="@+id/checkBepBar"
+                android:text="Bếp Bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -100,18 +92,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:text="Chọn giờ làm"
-                ></TextView>
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-
-                android:background="@mipmap/setting"></ImageView>
+            android:layout_weight="0.44"
+            android:orientation="vertical">
+            <CheckBox
+                android:id="@+id/checkCaSang"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Ca sáng (7h-12h)"
+                />
+            <CheckBox
+                android:id="@+id/checkCaChieu"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Ca sáng (12h-17h)"
+                />
+            <CheckBox
+                android:id="@+id/checkCaToi"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Ca sáng (17h-22h)"
+                />
         </LinearLayout>
     </LinearLayout>
 
@@ -130,6 +133,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2.5">
             <Button
+                android:id="@+id/btnTaoUser"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Tạo"

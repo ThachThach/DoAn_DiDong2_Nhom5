@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-import com.example.doandidong.data.Admin;
+import com.example.doandidong.data.NhanVien;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
 
-        ArrayList<Admin> admins = new ArrayList<Admin>();
+        ArrayList<NhanVien> admins = new ArrayList<NhanVien>();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -66,17 +66,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (mFirebaseUser != null) {
-                    Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
+                    //Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
 
-                    if(kiemTraAdmin == true){
-                        Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
-                        intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Yes", Toast.LENGTH_SHORT).show();
-                    }
+//                    if(kiemTraAdmin == true){
+//                        Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+//                        intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(intent);
+//                    }else{
+//                        //Toast.makeText(LoginActivity.this, kiemTraAdmin +"", Toast.LENGTH_SHORT).show();
+//                    }
+
+                    Toast.makeText(LoginActivity.this, "You are logged in", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         };
@@ -112,14 +116,18 @@ public class LoginActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(LoginActivity.this, "Login Error, Plese login Again!", Toast.LENGTH_LONG).show();
                             } else {
-                                Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
-                                if(kiemTraAdmin == true){
-                                    intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    Toast.makeText(LoginActivity.this, "Admin", Toast.LENGTH_LONG).show();
-                                    startActivity(intent);
-                                }else{
-                                    Toast.makeText(LoginActivity.this, "Yes yes", Toast.LENGTH_LONG).show();
-                                }
+//                                Boolean kiemTraAdmin = kiemTraUserAdmin(admins);
+//                                if(kiemTraAdmin == true){
+//                                    intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                    Toast.makeText(LoginActivity.this, "Admin", Toast.LENGTH_LONG).show();
+//                                    startActivity(intent);
+//                                }else{
+//                                    //Toast.makeText(LoginActivity.this, "ss", Toast.LENGTH_LONG).show();
+//                                }
+
+                                intent = new Intent(LoginActivity.this, MainActivity.class);
+                                //Toast.makeText(LoginActivity.this, "Admin", Toast.LENGTH_LONG).show();
+                                startActivity(intent);
                             }
                         }
                     });
@@ -130,37 +138,46 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public Boolean kiemTraUserAdmin(ArrayList<Admin> admins){
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        CollectionReference reference = firebaseFirestore.collection("user");
-        Boolean kiemTra = false;
-        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    QuerySnapshot snapshots = task.getResult();
-                    ArrayList<Admin> item = new ArrayList<>();
-                    for(QueryDocumentSnapshot doc : snapshots){
-                        Admin admin = new Admin();
-                        admin.setEmail(doc.get("email").toString());
-                        admin.setAdmin(doc.get("admin").toString());
-                        admins.add(admin);
-                    }
-                }
-            }
-        });
-
-        returnFor: for(Admin ad : admins){
-            if(ad.getEmail().equals(edtEmail.getText().toString())){
-                if (ad.getAdmin().equals("1")){
-                    kiemTra = true;
-                    break returnFor;
-                }
-            }
-        }
-
-        return kiemTra;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
+
+//    public Boolean kiemTraUserAdmin(ArrayList<NhanVien> admins){
+//        firebaseFirestore = FirebaseFirestore.getInstance();
+//        CollectionReference reference = firebaseFirestore.collection("user");
+//        Boolean kiemTra = false;
+//        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//                    QuerySnapshot snapshots = task.getResult();
+//                    ArrayList<NhanVien> item = new ArrayList<>();
+//                    for(QueryDocumentSnapshot doc : snapshots){
+//                        NhanVien admin = new NhanVien();
+//                        admin.setEmail(doc.get("email").toString());
+//                        admin.setAdmin(doc.get("admin").toString());
+//                        admins.add(admin);
+//                    }
+//                }
+//            }
+//        });
+//
+//
+//        returnFor: for(NhanVien ad : admins){
+//
+//            if(ad.getEmail().equals(edtEmail.getText().toString())){
+//                if (ad.getAdmin().equals("1")){
+//                    Toast.makeText(LoginActivity.this, "kiemtra    sssss", Toast.LENGTH_LONG).show();
+//                    kiemTra = true;
+//                    break returnFor;
+//                }
+//            }
+//        }
+//
+//        return kiemTra;
+//    }
 
     int i = 0;
 

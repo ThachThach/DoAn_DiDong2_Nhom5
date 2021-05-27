@@ -28,19 +28,22 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.example.doandidong.data.Admin;
+import com.example.doandidong.data.NhanVien;
 
 public class RegistrationActivity extends AppCompatActivity {
 
     private TextView textView;
-    private EditText edtEmail, edtPassword;
+    private EditText edtEmail, edtPassword, edtTenQuan;
     private Button btnRegistration;
     private Intent intent;
-    private static final String admin = "1";
+    //private static final String admin = "1";
 
     FirebaseAuth mFirebaseAuth;
     DatabaseReference mData;
     FirebaseFirestore firebaseFirestore;
+
+    private static final String name = "admin";
+    private static final String chucvu = "quanly";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,16 +54,21 @@ public class RegistrationActivity extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
         btnRegistration = findViewById(R.id.btnRegstration);
+        edtTenQuan = findViewById(R.id.edtTenQuan);
 
         mData = FirebaseDatabase.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        CollectionReference reference = firebaseFirestore.collection("user");
+        //CollectionReference reference = firebaseFirestore.collection("user");
+        CollectionReference referenceNhanVien= firebaseFirestore.collection("nhanvien");
+        CollectionReference referencethongtinquan = firebaseFirestore.collection("thongtinquan");
+
 
         btnRegistration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = edtEmail.getText().toString();
                 String pass = edtPassword.getText().toString();
+                String tenquan = edtTenQuan.getText().toString();
                 mFirebaseAuth = FirebaseAuth.getInstance();
 
                 if(email.isEmpty()){
@@ -79,15 +87,32 @@ public class RegistrationActivity extends AppCompatActivity {
                             if(!task.isSuccessful()){
                                 Toast.makeText(RegistrationActivity.this, "SignUp UnSuccessful, plese Try Again ", Toast.LENGTH_SHORT).show();
                             }else{
-                                Map<String, Object> userF = new HashMap<>();
-                                Admin user = new Admin(email, admin);
+                                Map<String, Object> nhanvien = new HashMap<>();
+                                Map<String, Object> thongtinquan = new HashMap<>();
+                                NhanVien nv = new NhanVien(email, chucvu, email, name);
 
-                                userF.put("email", user.getEmail());
-                                userF.put("admin", user.getAdmin());
-                                reference.add(userF).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                nhanvien.put("email", nv.getEmail());
+                                nhanvien.put("chucvu", nv.getChucvu());
+                                nhanvien.put("email_admin", nv.getEmail_admin());
+                                nhanvien.put("name", nv.getName());
+                                thongtinquan.put("email_admin", nv.getEmail_admin());
+                                thongtinquan.put("tenquan", tenquan);
+
+
+                                referenceNhanVien.add(nhanvien).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
-                                        Toast.makeText(RegistrationActivity.this, "success!", Toast.LENGTH_SHORT).show();
+                                        referencethongtinquan.add(thongtinquan).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Toast.makeText(RegistrationActivity.this, "success!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(RegistrationActivity.this, "fail!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -95,6 +120,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                         Toast.makeText(RegistrationActivity.this, "fail!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
+
 
                                 intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                 startActivity(intent);

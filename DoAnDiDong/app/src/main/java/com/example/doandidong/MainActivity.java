@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MainActivity.this, ThuChiActivity.class);
             startActivity(intent);
         }else if(v.getId() == R.id.btnBepBar){
-            intent = new Intent(MainActivity.this, BepBarActivity.class);
+            intent = new Intent(MainActivity.this, SanPhamActivity.class);
             startActivity(intent);
         }
     }
