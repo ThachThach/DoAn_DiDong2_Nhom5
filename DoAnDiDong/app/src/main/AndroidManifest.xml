@@ -17,6 +17,7 @@
             android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
         <activity android:name=".SanPhamMoi" />
         <activity android:name=".NhomSanPhamActivity" />
+        <activity android:name=".SanPhamActivity" />
         <activity
             android:name=".BanHangActivity"
             android:screenOrientation="portrait" />
