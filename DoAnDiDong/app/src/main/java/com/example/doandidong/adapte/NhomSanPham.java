@@ -6,6 +6,10 @@ public class NhomSanPham {
 
     public NhomSanPham(){}
 
+    public NhomSanPham(String tenNhom){
+        this.tenNhom = tenNhom;
+    }
+
     public NhomSanPham(String tenNhom, int img) {
         this.tenNhom = tenNhom;
         this.img = img;
