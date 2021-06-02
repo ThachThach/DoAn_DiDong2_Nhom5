@@ -1,5 +1,6 @@
 package com.example.doandidong;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +34,9 @@ public class NhomSanPhamMoi extends AppCompatActivity {
               Map<String, Object> item = new HashMap<>();
               item.put("tennhomsanpham",editText.getText().toString());
               reference.add(item);
-             editText.getText().toString();
+              Intent intent = new Intent();
+              intent = new Intent(NhomSanPhamMoi.this,NhomSanPhamActivity.class);
+              startActivity(intent);
           }
       });
 

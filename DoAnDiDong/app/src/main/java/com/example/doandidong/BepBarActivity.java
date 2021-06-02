@@ -12,9 +12,15 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.doandidong.adapte.CustomArraySanPham;
-import com.example.doandidong.adapte.Sanpham;
+import com.example.doandidong.adapte.NhomSanPham;
 import com.example.doandidong.fragment.SanPhamFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +29,10 @@ public class BepBarActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     ListView listView;
-    ArrayList<Sanpham> arraySanPham;
+    private ArrayList<NhomSanPham> arrayList;
     CustomArraySanPham customArrayAdapter;
+    private FirebaseFirestore firebaseFirestore;
+    private NhomSanPham nhomSanPham;
 
 
     @Override
@@ -33,21 +41,34 @@ public class BepBarActivity extends AppCompatActivity {
         setContentView(R.layout.activity_san_pham);
         tabLayout = findViewById(R.id.tablaySanPham);
         viewPager = findViewById(R.id.viewsanpham);
-        ArrayList<String> list = new ArrayList<>();
+
         listView = findViewById(R.id.list_item_sanphan);
-//        arraySanPham = new ArrayList<>();
-//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
-//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
-//        customArrayAdapter = new CustomArraySanPham(this, R.layout.item_sanpham,arraySanPham);
-//        listView.setAdapter(customArrayAdapter);
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        CollectionReference reference = firebaseFirestore.collection("nhomsanpham");
 
-        list.add("caphe");
-        list.add("nuoc ngot ca loai");
-        list.add("banh");
-        list.add("kha");
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull  Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    arrayList = new ArrayList<>();
+                    ArrayList<String> List = new ArrayList<>();
+                    QuerySnapshot snapshots = task.getResult();
+                    for(QueryDocumentSnapshot doc : snapshots){
+                        nhomSanPham = new NhomSanPham();
+                       String name = nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
+                        List.add(name);
+                    }
+                    prepateViewPage(viewPager,List);
+                    tabLayout.setupWithViewPager(viewPager);
+                }
 
-        prepateViewPage(viewPager,list);
-        tabLayout.setupWithViewPager(viewPager);
+            }
+        });
+
+
+
+
+
 
 
     }

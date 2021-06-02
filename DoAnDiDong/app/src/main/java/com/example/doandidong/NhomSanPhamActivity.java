@@ -48,7 +48,6 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                         nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
                         nhomSanPham.setImg(R.drawable.icon_delete);
                         arrayList.add(nhomSanPham);
-
                     }
                     cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
                     listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);

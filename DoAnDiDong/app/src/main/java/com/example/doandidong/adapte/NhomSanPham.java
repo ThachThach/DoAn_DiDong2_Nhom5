@@ -19,8 +19,9 @@ public class NhomSanPham {
         return tenNhom;
     }
 
-    public void setTenNhom(String tenNhom) {
+    public String setTenNhom(String tenNhom) {
         this.tenNhom = tenNhom;
+        return tenNhom;
     }
 
     public int getImg() {
