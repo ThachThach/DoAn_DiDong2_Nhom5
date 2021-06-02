@@ -61,7 +61,6 @@ public class BepBarActivity extends AppCompatActivity {
                     prepateViewPage(viewPager,List);
                     tabLayout.setupWithViewPager(viewPager);
                 }
-
             }
         });
 

@@ -7,11 +7,15 @@
     tools:context=".fragment.SanPhamFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ListView
-        android:id="@+id/list_item_sanphan"
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:theme="@style/Theme.DoAnDiDong.AppBarOverlay">
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include layout="@layout/content_sanpham"/>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/themsanpham"
         android:layout_width="wrap_content"
