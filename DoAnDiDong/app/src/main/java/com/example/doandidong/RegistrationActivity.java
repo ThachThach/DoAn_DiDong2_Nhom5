@@ -89,12 +89,13 @@ public class RegistrationActivity extends AppCompatActivity {
                             }else{
                                 Map<String, Object> nhanvien = new HashMap<>();
                                 Map<String, Object> thongtinquan = new HashMap<>();
-                                NhanVien nv = new NhanVien(email, chucvu, email, name);
+                                NhanVien nv = new NhanVien(email, chucvu, email, name, "CLadmin");
 
                                 nhanvien.put("email", nv.getEmail());
                                 nhanvien.put("chucvu", nv.getChucvu());
                                 nhanvien.put("email_admin", nv.getEmail_admin());
                                 nhanvien.put("name", nv.getName());
+                                nhanvien.put("calam", nv.getCalam());
                                 thongtinquan.put("email_admin", nv.getEmail_admin());
                                 thongtinquan.put("tenquan", tenquan);
 

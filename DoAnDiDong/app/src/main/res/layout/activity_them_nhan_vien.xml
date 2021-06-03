@@ -50,6 +50,7 @@
         </LinearLayout>
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.44"
@@ -94,26 +95,27 @@
             android:layout_height="match_parent"
             android:layout_weight="0.44"
             android:orientation="vertical">
+
             <CheckBox
                 android:id="@+id/checkCaSang"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Ca sáng (7h-12h)"
-                />
+                android:text="Ca sáng (7h-12h)" />
+
             <CheckBox
                 android:id="@+id/checkCaChieu"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Ca sáng (12h-17h)"
+                android:text="Ca chiều (12h-17h)"
                 />
             <CheckBox
                 android:id="@+id/checkCaToi"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="Ca sáng (17h-22h)"
+                android:text="Ca tối (17h-22h)"
                 />
         </LinearLayout>
     </LinearLayout>
