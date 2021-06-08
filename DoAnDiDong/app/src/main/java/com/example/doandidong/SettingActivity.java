@@ -63,7 +63,7 @@ public class SettingActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
                 if (position == 1){
-                    Intent intent = new Intent(SettingActivity.this, BepBarActivity.class);
+                    Intent intent = new Intent(SettingActivity.this, ActivitySanPham.class);
                     startActivity(intent);
                 }
             }

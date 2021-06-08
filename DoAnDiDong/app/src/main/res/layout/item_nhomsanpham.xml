@@ -9,13 +9,18 @@
         android:id="@+id/tennhomsanpham"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="9"></TextView>
+        android:layout_weight="8"></TextView>
 
     <ImageView
         android:id="@+id/icon_delete1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"></ImageView>
-    
+
+    <CheckBox
+        android:id="@+id/checkNhomsanpham"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"></CheckBox>
 
 </LinearLayout>

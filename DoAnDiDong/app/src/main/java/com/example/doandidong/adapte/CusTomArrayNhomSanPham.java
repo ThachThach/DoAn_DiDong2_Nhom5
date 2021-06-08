@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,18 @@ public class CusTomArrayNhomSanPham extends ArrayAdapter<NhomSanPham> {
          convertView = inflater.inflate(layout,null);
         TextView tennhomSanPham = convertView.findViewById(R.id.tennhomsanpham);
         ImageView iconDelete = convertView.findViewById(R.id.icon_delete1);
-
+        CheckBox checkBox = convertView.findViewById(R.id.checkNhomsanpham);
+        checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(((CheckBox)v).isChecked()){
+                    arrayList.get(position).setCheck(true);
+                }
+                else {
+                    arrayList.get(position).setCheck(false);
+                }
+            }
+        });
         tennhomSanPham.setText(arrayList.get(position).getTenNhom());
         iconDelete.setImageResource(arrayList.get(position).getImg());
          return convertView;

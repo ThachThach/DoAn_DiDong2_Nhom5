@@ -86,7 +86,7 @@ public class SanPhamMoi extends AppCompatActivity {
                         item.put("masanpham",editMaSanPham.getText().toString());
                         reference1.add(item);
                         Intent intent = new Intent();
-                        intent = new Intent(SanPhamMoi.this,BepBarActivity.class);
+                        intent = new Intent(SanPhamMoi.this,ActivitySanPham.class);
                         startActivity(intent);
 
                     }

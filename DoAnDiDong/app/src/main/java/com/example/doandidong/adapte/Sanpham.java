@@ -1,6 +1,17 @@
 package com.example.doandidong.adapte;
 
 public class Sanpham {
+    public Sanpham(String tenSanpham) {
+        this.tenSanpham = tenSanpham;
+    }
+
+    public Sanpham(String tenSanpham, Double giaSanpham, int image, String nhomSanPham) {
+        this.tenSanpham = tenSanpham;
+        this.giaSanpham = giaSanpham;
+        this.image = image;
+        this.nhomSanPham = nhomSanPham;
+    }
+
     String tenSanpham;
     Double giaSanpham;
     int image;
@@ -8,6 +19,26 @@ public class Sanpham {
     String nhomSanPham;
     Double vonSanPham;
     String maSanPham;
+
+    public String getIdSanPham() {
+        return IdSanPham;
+    }
+
+    public void setIdSanPham(String idSanPham) {
+        IdSanPham = idSanPham;
+    }
+
+    String IdSanPham;
+
+    public Boolean getCheckSP() {
+        return isCheckSP;
+    }
+
+    public void setCheckSP(Boolean checkSP) {
+        isCheckSP = checkSP;
+    }
+
+    Boolean isCheckSP = false;
 
     public Sanpham(String tenSanpham, Double giaSanpham, String donVitinh, String nhomSanPham, Double vonSanPham, String maSanPham) {
         this.tenSanpham = tenSanpham;
@@ -31,8 +62,9 @@ public class Sanpham {
         return nhomSanPham;
     }
 
-    public void setNhomSanPham(String nhomSanPham) {
+    public String setNhomSanPham(String nhomSanPham) {
         this.nhomSanPham = nhomSanPham;
+        return nhomSanPham;
     }
 
     public Double getVonSanPham() {
@@ -57,8 +89,9 @@ public class Sanpham {
         return tenSanpham;
     }
 
-    public void setTenSanpham(String tenSanpham) {
+    public String setTenSanpham(String tenSanpham) {
         this.tenSanpham = tenSanpham;
+        return tenSanpham;
     }
 
     public Double getGiaSanpham() {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/addMN"
+        android:title="@string/menuThem"
+        android:icon="@mipmap/ic_add_black_24dp"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/removeMN"
+        android:title="@string/menuXoa"
+        android:icon="@mipmap/ic_remove_black_24dp"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/updateMN"
+        android:title="@string/menuSua"
+        android:icon="@mipmap/ic_update_black_24dp"
+        app:showAsAction="always"/>
+
+</menu>

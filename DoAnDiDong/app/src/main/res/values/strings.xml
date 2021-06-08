@@ -11,6 +11,7 @@
     <string name="maSP">Mã sản phẩm</string>
     <string name="hintSo">0</string>
     <string name="buttonLuu">Lưu</string>
+    <string name="buttonThoat">Thoat</string>
     <string name="title_activity_quan_ly_nhan_vien">QuanLyNhanVien</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -23,4 +24,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nhomsanpham">Nhập nhóm sản phẩm</string>
+    <string name="menuXoa">Delete</string>
+    <string name="menuSua">Update</string>
+    <string name="menuThem">Add</string>
+    <string name="editNhom">Nhóm:</string>
+    <string name="tenBan">Bàn:</string>
+
 </resources>
