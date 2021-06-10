@@ -99,7 +99,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                 thongtinquan.put("email_admin", nv.getEmail_admin());
                                 thongtinquan.put("tenquan", tenquan);
 
-
                                 referenceNhanVien.add(nhanvien).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
@@ -121,8 +120,6 @@ public class RegistrationActivity extends AppCompatActivity {
                                         Toast.makeText(RegistrationActivity.this, "fail!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
-
 
                                 intent = new Intent(RegistrationActivity.this, MainActivity.class);
                                 startActivity(intent);

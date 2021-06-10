@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ThuChiActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablay"
+    <ListView
+        android:id="@+id/lvThuChi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:tabGravity="fill"
-        app:tabMode="scrollable"
-        app:tabTextAppearance="@style/TextAppearance.Design.Tab"
-        app:tabSelectedTextColor="@color/black"
-        android:overScrollMode="never"
-        >
-    </com.google.android.material.tabs.TabLayout>
+        android:layout_height="0dp"
+        android:layout_weight="9">
 
-    <androidx.viewpager.widget.ViewPager
+    </ListView>
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/view"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="TEST"
+        android:id="@+id/button"/>
+
 
 </LinearLayout>

@@ -9,10 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnDiDong">
-        <activity android:name=".SanPhamActivity"></activity>
-        <activity
-            android:name=".ThuChiActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".BanHangActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".ThuChiActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".SanPhamActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".ThemNhanVien"
             android:screenOrientation="portrait" />
@@ -23,9 +22,6 @@
             android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
         <activity
             android:name=".SanPhamMoi"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".BanHangActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".LoginActivity"

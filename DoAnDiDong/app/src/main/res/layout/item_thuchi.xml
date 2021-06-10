@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/lblThang"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:text="Tháng: "
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblTongThu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="Tổng thu: "></TextView>
+        <TextView
+            android:id="@+id/lblTongVon"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:text="Tổng vốn: ">
+        </TextView>
+        <TextView
+            android:id="@+id/lblLoiBan"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:text="Tiền lời bán: ">
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

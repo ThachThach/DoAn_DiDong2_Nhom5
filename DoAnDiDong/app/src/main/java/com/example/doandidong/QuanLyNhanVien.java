@@ -46,9 +46,15 @@ public class QuanLyNhanVien extends AppCompatActivity {
         setSupportActionBar(toolbar);
         constraintLayout = findViewById(R.id.menuCoontext);
 
-
-
         firebaseFirestore = FirebaseFirestore.getInstance();
+
+    /*    firebaseFirestore.collection("users").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) = > {
+                        console.log(`${doc.id} = > ${doc.data()}`);
+                }
+        });*/
+
+
 
         ArrayList<NhanVien> listNV = new ArrayList<NhanVien>();
         firebaseFirestore.collection("nhanvien").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

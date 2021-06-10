@@ -1,52 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="7"
-    android:orientation="vertical"
+
+    android:orientation="vertical">
     >
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="7"
-        android:layout_gravity="center_vertical"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tltang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
         >
-        <Button
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:text="Tầng trệt"
-            android:layout_margin="20px"
-            >
-        </Button>
+    </com.google.android.material.tabs.TabLayout>
 
-        <Button
-            android:layout_width="130dp"
-            android:layout_height="match_parent"
-            android:text="Tầng 1"
-            android:layout_margin="20px">
-
-        </Button>
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/lvBan"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_horizontal">
+        />
 
-        <Button
-            android:layout_width="170dp"
-            android:layout_height="107dp"
-            android:layout_margin="20px"></Button>
-        <Button
-            android:layout_width="170dp"
-            android:layout_height="107dp"
-            android:layout_margin="20px"></Button>
-    </LinearLayout>
-
-    <TextView android:id="@+id/txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
 </LinearLayout>
