@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.doandidong.LoginActivity;
+import com.example.doandidong.OderActivity;
 import com.example.doandidong.QuanLyNhanVien;
 import com.example.doandidong.R;
 import com.example.doandidong.SettingActivity;
@@ -38,6 +39,9 @@ public class KhuVuc1Fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private ListView listView;
+
+    public final static String KEY_TEN_BAN = "KEY_TEN_BAN";
+    public final static String KEY_KHU_VUC = "KEY_KHU_VUC";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -85,6 +89,9 @@ public class KhuVuc1Fragment extends Fragment {
         listView = view.findViewById(R.id.listview_khu1);
         CollectionReference db = firestore.collection("phongban");
 
+        Intent intent = new Intent(getContext(), OderActivity.class);
+        Bundle bundle = new Bundle();
+
         db.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -106,6 +113,10 @@ public class KhuVuc1Fragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Toast.makeText(getContext(), listPhongBan.get(i).getTenban(), Toast.LENGTH_SHORT).show();
+                            bundle.putString(KEY_TEN_BAN, listPhongBan.get(i).getTenban());
+                            bundle.putString(KEY_KHU_VUC, listPhongBan.get(i).getKhuvuc()+"");
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
                     });
                 }

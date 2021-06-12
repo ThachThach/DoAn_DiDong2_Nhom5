@@ -1,5 +1,6 @@
 package com.example.doandidong.fragment.banhangfragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.doandidong.OderActivity;
 import com.example.doandidong.R;
 import com.example.doandidong.adapte.CustomBanHangAdapter;
 import com.example.doandidong.data.PhongBan;
@@ -30,6 +32,9 @@ public class KhuVuc3Fragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    public final static String KEY_TEN_BAN = "KEY_TEN_BAN";
+    public final static String KEY_KHU_VUC = "KEY_KHU_VUC";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -77,6 +82,9 @@ public class KhuVuc3Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_khu_vuc1, container, false);
         firestore =  FirebaseFirestore.getInstance();
 
+        Intent intent = new Intent(getContext(), OderActivity.class);
+        Bundle bundle = new Bundle();
+
         listPhongBan = new ArrayList<PhongBan>();
         listView = view.findViewById(R.id.listview_khu1);
         CollectionReference db = firestore.collection("phongban");
@@ -102,6 +110,10 @@ public class KhuVuc3Fragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Toast.makeText(getContext(), listPhongBan.get(i).getTenban(), Toast.LENGTH_SHORT).show();
+                            bundle.putString(KEY_TEN_BAN, listPhongBan.get(i).getTenban());
+                            bundle.putInt(KEY_KHU_VUC, listPhongBan.get(i).getKhuvuc());
+                            intent.putExtras(bundle);
+                            startActivity(intent);
                         }
                     });
                 }

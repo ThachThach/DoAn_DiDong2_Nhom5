@@ -26,4 +26,23 @@
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
     <string name="title_activity_ban_hang">BanHangActivity</string>
+
+    <string-array name="drink">
+        <item>Cafe Den</item>
+        <item>Cafe Sua</item>
+        <item>Redbull</item>
+        <item>Seven Up</item>
+    </string-array>
+    <string-array name="description">
+        <item>18.000đ</item>
+        <item>22.000đ</item>
+        <item>20.000đ</item>
+        <item>20.000đ</item>
+    </string-array>
+    <string-array name="type">
+        <item>Phổ biến</item>
+        <item>Cafe</item>
+        <item>Đồ uống có ga</item>
+
+    </string-array>
 </resources>

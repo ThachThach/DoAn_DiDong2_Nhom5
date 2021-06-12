@@ -13,4 +13,12 @@
     <color name="khaki">#EEE685</color>
     <color name="wheat">#FFE7BA</color>
     <color name="yellow">#FFFF66</color>
+    <color name="xanh_vang">#99FF00</color>
+    <color name="xanh_vang_nhat">#CCFF66</color>
+    <color name="xanh_duong">#66FFFF</color>
+    <color name="hong_nhat_1">#FF99FF</color>
+    <color name="cam_1">#FF9900</color>
+    <color name="do1">#FF0000</color>
+    <color name="tim1">	#660033</color>
+    <color name="vang_nau">	#666600</color>
 </resources>
