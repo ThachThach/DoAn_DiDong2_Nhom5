@@ -45,24 +45,7 @@ public class ThuChiActivity extends AppCompatActivity {
 
         load(listThuChi, db);
 
-        Log.d("TEST", listThuChi.size()+"");
-
-        Button button = findViewById(R.id.button);
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TEST", listThuChi.size()+"");
-            }
-        });
-//            try {
-
-//                Thread.sleep(500);
-//
-//                    Log.d("TEST", listThuChi.size()+"");
-//            } catch (InterruptedException e) {
-//                Log.d("TEST", e+"");
-//            }
+        Log.d("TEST", listThuChi.size() + "");
     }
 
     public void load(ArrayList<ThuChi> listThuChi, CollectionReference db){

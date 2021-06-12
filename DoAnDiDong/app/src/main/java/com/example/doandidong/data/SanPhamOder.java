@@ -1,12 +1,14 @@
 package com.example.doandidong.data;
 
 public class SanPhamOder {
+    private String nhomSanPham;
     private String tenSP;
     private double giaBan;
     private double giaLe;
     private double soLuong;
 
-    public SanPhamOder(String tenSP, double giaBan, double giaLe) {
+    public SanPhamOder(String nhomSanPham,String tenSP, double giaBan, double giaLe) {
+        this.nhomSanPham = nhomSanPham;
         this.tenSP = tenSP;
         this.giaBan = giaBan;
         this.giaLe = giaLe;
@@ -46,5 +48,13 @@ public class SanPhamOder {
 
     public void setSoLuong(double soLuong) {
         this.soLuong = soLuong;
+    }
+
+    public String getNhomSanPham() {
+        return nhomSanPham;
+    }
+
+    public void setNhomSanPham(String nhomSanPham) {
+        this.nhomSanPham = nhomSanPham;
     }
 }

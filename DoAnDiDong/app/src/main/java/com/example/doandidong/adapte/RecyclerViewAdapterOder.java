@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -33,8 +34,27 @@ public class RecyclerViewAdapterOder extends RecyclerView.Adapter<RecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText1.setText(listData.get(position).getTenSP());
-        holder.myText2.setText(listData.get(position).getGiaBan()+"");
+        holder.tenBan.setText(listData.get(position).getTenSP());
+        holder.giaBan.setText(listData.get(position).getGiaBan()+"");
+
+        holder.btnCong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listData.get(position).setSoLuong(listData.get(position).getSoLuong()+1);
+                holder.lblSoLuong.setText((listData.get(position).getSoLuong())+"");
+
+            }
+        });
+
+        holder.btnTru.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listData.get(position).getSoLuong() != 0){
+                    listData.get(position).setSoLuong(listData.get(position).getSoLuong()-1);
+                    holder.lblSoLuong.setText((listData.get(position).getSoLuong())+"");
+                }
+            }
+        });
     }
 
     @Override
@@ -43,12 +63,16 @@ public class RecyclerViewAdapterOder extends RecyclerView.Adapter<RecyclerViewAd
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView myText1, myText2;
+        TextView tenBan, giaBan, lblSoLuong;
+        Button btnCong, btnTru;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            myText1 = itemView.findViewById(R.id.myText1);
-            myText2 = itemView.findViewById(R.id.myText2);
+            tenBan = itemView.findViewById(R.id.lblTenSanPham);
+            giaBan = itemView.findViewById(R.id.lblGia);
+            btnCong = itemView.findViewById(R.id.btnCong);
+            btnTru = itemView.findViewById(R.id.btnTru);
+            lblSoLuong = itemView.findViewById(R.id.lblSoLuong);
         }
     }
 }

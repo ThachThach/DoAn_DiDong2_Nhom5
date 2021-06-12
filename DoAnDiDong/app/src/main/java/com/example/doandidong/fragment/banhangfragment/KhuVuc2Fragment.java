@@ -109,7 +109,7 @@ public class KhuVuc2Fragment extends Fragment {
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Toast.makeText(getContext(), listPhongBan.get(i).getTenban(), Toast.LENGTH_SHORT).show();
                             bundle.putString(KEY_TEN_BAN, listPhongBan.get(i).getTenban());
-                            bundle.putInt(KEY_KHU_VUC, listPhongBan.get(i).getKhuvuc());
+                            bundle.putString(KEY_KHU_VUC, "2");
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
