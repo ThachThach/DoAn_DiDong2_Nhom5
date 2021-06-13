@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.doandidong.R;
+import com.example.doandidong.data.Setting;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +34,7 @@ public class CustomArraySettingAdapter extends ArrayAdapter<Setting> {
         convertView = inflater.inflate(layoutResource,null);
 
         TextView txt = (TextView)convertView.findViewById(R.id.textSetting);
-        txt.setText(arrayList.get(position).name);
+        txt.setText(arrayList.get(position).getName());
 
         ImageView img = (ImageView)convertView.findViewById(R.id.imgSetting);
         img.setImageResource(arrayList.get(position).getImg());

@@ -1,21 +1,19 @@
 package com.example.doandidong;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-import java.util.ArrayList;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CustomArraySettingAdapter;
 import com.example.doandidong.adapte.Setting;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
 
 public class SettingActivity extends AppCompatActivity {
 
@@ -28,8 +26,6 @@ public class SettingActivity extends AppCompatActivity {
     private String SO_DO = "Sơ đồ phòng, bàn";
     private String QL_NHAN_VIEN = "Quản lý nhân viên";
     private String DANG_XUAT = "Đăng xuất";
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private FirebaseUser user = mAuth.getCurrentUser();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +47,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==4){
-                    mAuth.signOut();
+                    FirebaseAuth.getInstance().signOut();
 
                     Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -62,7 +58,16 @@ public class SettingActivity extends AppCompatActivity {
                     Intent intent = new Intent(SettingActivity.this, QuanLyNhanVien.class);
                     startActivity(intent);
                 }
+                if (position == 0){
+                    Intent intent = new Intent(SettingActivity.this, NhomSanPhamActivity.class);
+                    startActivity(intent);
+                }
+                if (position == 1){
+                    Intent intent = new Intent(SettingActivity.this, ActivitySanPham.class);
+                    startActivity(intent);
+                }
             }
         });
+
     }
 }

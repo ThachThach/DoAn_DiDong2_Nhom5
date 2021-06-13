@@ -1,104 +1,140 @@
 package com.example.doandidong;
 
 import android.os.Bundle;
-import android.widget.ListView;
+import android.view.View;
+import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.ExpandableListView.OnGroupClickListener;
+import android.widget.ExpandableListView.OnGroupCollapseListener;
+import android.widget.ExpandableListView.OnGroupExpandListener;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
-import com.example.doandidong.adapte.CustomArraySanPham;
-import com.example.doandidong.data.SanPham;
-import com.example.doandidong.fragment.SanPhamFragment;
-import com.google.android.material.tabs.TabLayout;
+import com.example.doandidong.adapte.ExpandableListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SanPhamActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    ListView listView;
-    ArrayList<SanPham> arraySanPham;
-    CustomArraySanPham customArrayAdapter;
 
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_san_pham);
-        tabLayout = findViewById(R.id.tablaySanPham);
-        viewPager = findViewById(R.id.viewsanpham);
-        ArrayList<String> list = new ArrayList<>();
-        listView = findViewById(R.id.list_item_sanphan);
-//        arraySanPham = new ArrayList<>();
-//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
-//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
-//        customArrayAdapter = new CustomArraySanPham(this, R.layout.item_sanpham,arraySanPham);
-//        listView.setAdapter(customArrayAdapter);
+        setContentView(R.layout.activity_bep_bar);
 
-        list.add("caphe");
-        list.add("nuoc ngot ca loai");
-        list.add("banh");
-        list.add("kha");
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.bepBar);
 
-        prepateViewPage(viewPager,list);
-        tabLayout.setupWithViewPager(viewPager);
+        // preparing list data
+        prepareListData();
 
+        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
 
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        // Listview Group click listener
+        expListView.setOnGroupClickListener(new OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                // Toast.makeText(getApplicationContext(),
+                // "Group Clicked " + listDataHeader.get(groupPosition),
+                // Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        // Listview Group expanded listener
+        expListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Expanded",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Listview Group collasped listener
+        expListView.setOnGroupCollapseListener(new OnGroupCollapseListener() {
+
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                Toast.makeText(getApplicationContext(),
+                        listDataHeader.get(groupPosition) + " Collapsed",
+                        Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        // Listview on child click listener
+        expListView.setOnChildClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                // TODO Auto-generated method stub
+                Toast.makeText(
+                        getApplicationContext(),
+                        listDataHeader.get(groupPosition)
+                                + " : "
+                                + listDataChild.get(
+                                listDataHeader.get(groupPosition)).get(
+                                childPosition), Toast.LENGTH_SHORT)
+                        .show();
+                return false;
+            }
+        });
     }
 
-    private void prepateViewPage(ViewPager mViewPager, ArrayList<String> list) {
-        MainAdapter adapte = new MainAdapter(getSupportFragmentManager());
+    /*
+     * Preparing the list data
+     */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
-        SanPhamFragment sanPhamFragment = new SanPhamFragment();
+        // Adding child data
+        listDataHeader.add("Top 250");
+        listDataHeader.add("Now Showing");
+        listDataHeader.add("Coming Soon..");
 
-        for(int i= 0; i<list.size(); i++){
-            Bundle bundle = new Bundle();
-            bundle.putString("title", list.get(i));
-            sanPhamFragment.setArguments(bundle);
-            adapte.addFragment(sanPhamFragment, list.get(i));
-            sanPhamFragment = new SanPhamFragment();
-        }
-        mViewPager.setAdapter(adapte);
-    }
+        // Adding child data
+        List<String> top250 = new ArrayList<String>();
+        top250.add("The Shawshank Redemption");
+        top250.add("The Godfather");
+        top250.add("The Godfather: Part II");
+        top250.add("Pulp Fiction");
+        top250.add("The Good, the Bad and the Ugly");
+        top250.add("The Dark Knight");
+        top250.add("12 Angry Men");
 
-    private class MainAdapter extends FragmentPagerAdapter {
-        ArrayList<String> arrayList = new ArrayList<>();
-        List<Fragment> fragmentList = new ArrayList<>();
+        List<String> nowShowing = new ArrayList<String>();
+        nowShowing.add("The Conjuring");
+        nowShowing.add("Despicable Me 2");
+        nowShowing.add("Turbo");
+        nowShowing.add("Grown Ups 2");
+        nowShowing.add("Red 2");
+        nowShowing.add("The Wolverine");
 
-        public void addFragment(Fragment fragment, String title){
-            arrayList.add(title);
-            fragmentList.add(fragment);
-        }
+        List<String> comingSoon = new ArrayList<String>();
+        comingSoon.add("2 Guns");
+        comingSoon.add("The Smurfs 2");
+        comingSoon.add("The Spectacular Now");
+        comingSoon.add("The Canyons");
+        comingSoon.add("Europa Report");
 
-        public MainAdapter(@NonNull FragmentManager fm) {
-            super(fm);
-        }
-
-        public MainAdapter(@NonNull FragmentManager fm, int behavior) {
-            super(fm, behavior);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            return fragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return fragmentList.size();
-        }
-
-        @Nullable
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return arrayList.get(position);
-        }
+        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), nowShowing);
+        listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 }

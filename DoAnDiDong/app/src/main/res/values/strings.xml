@@ -11,6 +11,7 @@
     <string name="maSP">Mã sản phẩm</string>
     <string name="hintSo">0</string>
     <string name="buttonLuu">Lưu</string>
+    <string name="buttonThoat">Thoat</string>
     <string name="title_activity_quan_ly_nhan_vien">QuanLyNhanVien</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -22,27 +23,11 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_thu_chi">ThuChiActivity</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
-    <string name="title_activity_ban_hang">BanHangActivity</string>
+    <string name="nhomsanpham">Nhập nhóm sản phẩm</string>
+    <string name="menuXoa">Delete</string>
+    <string name="menuSua">Update</string>
+    <string name="menuThem">Add</string>
+    <string name="editNhom">Nhóm:</string>
+    <string name="tenBan">Bàn:</string>
 
-    <string-array name="drink">
-        <item>Cafe Den</item>
-        <item>Cafe Sua</item>
-        <item>Redbull</item>
-        <item>Seven Up</item>
-    </string-array>
-    <string-array name="description">
-        <item>18.000đ</item>
-        <item>22.000đ</item>
-        <item>20.000đ</item>
-        <item>20.000đ</item>
-    </string-array>
-    <string-array name="type">
-        <item>Phổ biến</item>
-        <item>Cafe</item>
-        <item>Đồ uống có ga</item>
-
-    </string-array>
 </resources>

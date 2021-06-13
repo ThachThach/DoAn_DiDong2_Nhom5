@@ -1,4 +1,4 @@
-package com.example.doandidong.adapte;
+package com.example.doandidong.data;
 
 public class Setting {
     String name;

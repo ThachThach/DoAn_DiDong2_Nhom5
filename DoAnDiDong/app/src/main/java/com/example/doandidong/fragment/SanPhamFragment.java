@@ -1,5 +1,6 @@
 package com.example.doandidong.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.doandidong.R;
+import com.example.doandidong.SanPhamMoi;
 import com.example.doandidong.adapte.CustomArraySanPham;
-import com.example.doandidong.data.SanPham;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -30,13 +33,12 @@ public class SanPhamFragment extends Fragment {
     private String SAN_PHAM1 = "CaPhe";
     private String SAN_PHAM2 = "Banh";
     private  double GIA_SANPHAM = 20000;
-    ArrayList<SanPham> arraySanPham;
+    ArrayList<Sanpham> arraySanPham;
+    ListView listView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private ListView listView;
 
     public SanPhamFragment() {
         // Required empty public constructor
@@ -70,8 +72,29 @@ public class SanPhamFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        int sec = getArguments().getInt(ARG_PARAM1);
+
+
         View view = inflater.inflate(R.layout.fragment_san_pham, container, false);
+//
+//        ListView listView = view.findViewById(R.id.list_item_sanphan);
+//
+//        arraySanPham = new ArrayList<>();
+//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
+//        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
+//        CustomArraySanPham customArrayAdapter = new CustomArraySanPham(this, R.layout.item_sanpham,arraySanPham);
+//        listView.setAdapter(customArrayAdapter);
+
+//        if(sec == 1){
+//            view = inflater.inflate(R.layout.fragment_san_pham, container, false);
+//        }else{
+//            view = inflater.inflate(R.layout.fragment_san_pham, container, false);
+//        }
+
         return view;
     }
 
@@ -80,12 +103,25 @@ public class SanPhamFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listView = view.findViewById(R.id.list_item_sanphan);
-
-        arraySanPham = new ArrayList<>();
-        arraySanPham.add(new SanPham("123",123.0,R.drawable.logout));
-        arraySanPham.add(new SanPham("123",123.0,R.drawable.logout));
+                arraySanPham = new ArrayList<>();
+        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
+        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.themsanpham);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(view, "Thêm san pham  mới", Snackbar.LENGTH_LONG)
+                        .setAction("Thêm", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent();
+                                intent = new Intent(view.getContext(), SanPhamMoi.class);
+                                startActivity(intent);
+                            }
+                        }).show();
+            }
+        });
         CustomArraySanPham customArrayAdapter = new CustomArraySanPham(view.getContext(), R.layout.item_sanpham,arraySanPham);
         listView.setAdapter(customArrayAdapter);
     }
-
 }
