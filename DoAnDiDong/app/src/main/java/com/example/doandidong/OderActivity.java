@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.doandidong.adapte.RecyclerViewAdapterOder;
 import com.example.doandidong.data.DanhSachSanPhamOder;
+import com.example.doandidong.data.NhanVien;
 import com.example.doandidong.data.SanPham;
 import com.example.doandidong.data.SanPhamOder;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -37,6 +39,7 @@ public class OderActivity extends AppCompatActivity {
 
     private DatabaseReference mFirebaseDatabase;
     private FirebaseDatabase mFirebaseInstance;
+    private FirebaseFirestore mFirebaseFirestore;
 
     private final static String TEN_BAN = "tenban";
     private final static String KHU_VUC = "khuvuc";
@@ -62,6 +65,7 @@ public class OderActivity extends AppCompatActivity {
 
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mFirebaseDatabase = mFirebaseInstance.getReference("bepbar");
+        mFirebaseFirestore = mFirebaseFirestore.getInstance();
 
         btnXong = findViewById(R.id.btnXong);
         listView = findViewById(R.id.listViewNhomSanPham);
@@ -170,12 +174,30 @@ public class OderActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     if (Integer.parseInt(task.getResult().child(tenSanPham).child(SO_LUONG).getValue()+"") == 0){
                         mFirebaseInstance.getInstance().getReference("bepbar").child(DANH_SACH_ODER).child(tenSanPham).removeValue();
-
                     }
                 }
             }
         });
     }
+
+    private ArrayList<SanPham> getDataSanPham(){
+        mFirebaseFirestore.collection("").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String email_admin1 = "" + document.getData().get("email_admin");
+                        String email1 = "" + document.getData().get("email");
+                        String chucvu1 = "" + document.getData().get("chucvu");
+                        String name1 = "" + document.getData().get("name");
+                        NhanVien nv = new NhanVien(email1, chucvu1, email_admin1, name1);
+                    }
+                }
+            }
+        });
+    }
+
+
 }
 
 /* int finalI = i;
