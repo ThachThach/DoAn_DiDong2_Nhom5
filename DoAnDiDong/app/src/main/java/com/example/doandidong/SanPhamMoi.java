@@ -11,6 +11,8 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.doandidong.data.NhomSanPham;
+import com.example.doandidong.data.SanPham;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
@@ -28,7 +30,7 @@ public class SanPhamMoi extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private  NhomSanPham nhomSanPham;
     private ArrayList<String> List;
-    private Sanpham sanpham;
+    private SanPham sanpham;
     private EditText editTenSanPham;
     private EditText editGiaSanPham;
     private EditText editDonViTinh;

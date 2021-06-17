@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.doandidong.R;
+import com.example.doandidong.data.Bepbar;
 
 import java.util.ArrayList;
 
@@ -30,19 +31,10 @@ public class CustumArrayBepBar extends ArrayAdapter<Bepbar> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(layout,null);
-        TextView tensanpham = convertView.findViewById(R.id.tensanphamoder);
-        TextView tennguoioder= convertView.findViewById(R.id.tennguoioder);
-        TextView thoigian = convertView.findViewById(R.id.thoigian);
-        TextView soluong = convertView.findViewById(R.id.soluonghang);
-        TextView tenban = convertView.findViewById(R.id.tenbanbepbar);
-        TextView khuvuc = convertView.findViewById(R.id.khuvuc);
-
-        tensanpham.setText(arrayList.get(position).tensanpham);
-        tennguoioder.setText(arrayList.get(position).tennguoioder);
-        thoigian.setText(arrayList.get(position).thoigian);
-        soluong.setText(arrayList.get(position).soluong+"");
-        tenban.setText(arrayList.get(position).tenban);
-        khuvuc.setText(arrayList.get(position).khuvuc);
+        TextView thoigia = convertView.findViewById(R.id.thoigianoder);
+        TextView danhsach = convertView.findViewById(R.id.danhsachoder);
+        thoigia.setText(arrayList.get(position).getThoigia());
+        danhsach.setText(arrayList.get(position).getDanhdsachoer());
         return convertView;
     }
 }

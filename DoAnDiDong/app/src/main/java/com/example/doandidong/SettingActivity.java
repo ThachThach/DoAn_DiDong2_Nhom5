@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CustomArraySettingAdapter;
-import com.example.doandidong.adapte.Setting;
+
+import com.example.doandidong.data.Setting;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -48,11 +49,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(position==4){
                     FirebaseAuth.getInstance().signOut();
-
                     Intent intent = new Intent(SettingActivity.this, LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                     startActivity(intent);
                 }else if(position == 3){
                     Intent intent = new Intent(SettingActivity.this, QuanLyNhanVien.class);

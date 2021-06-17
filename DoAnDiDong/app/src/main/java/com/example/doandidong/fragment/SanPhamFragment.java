@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.doandidong.R;
 import com.example.doandidong.SanPhamMoi;
 import com.example.doandidong.adapte.CustomArraySanPham;
+import com.example.doandidong.data.SanPham;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,7 +34,7 @@ public class SanPhamFragment extends Fragment {
     private String SAN_PHAM1 = "CaPhe";
     private String SAN_PHAM2 = "Banh";
     private  double GIA_SANPHAM = 20000;
-    ArrayList<Sanpham> arraySanPham;
+    ArrayList<SanPham> arraySanPham;
     ListView listView;
 
     // TODO: Rename and change types of parameters
@@ -104,8 +105,8 @@ public class SanPhamFragment extends Fragment {
 
         listView = view.findViewById(R.id.list_item_sanphan);
                 arraySanPham = new ArrayList<>();
-        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
-        arraySanPham.add(new Sanpham("123",123.0,R.drawable.icon_delete));
+        arraySanPham.add(new SanPham("123",123.0,R.drawable.ic_launcher_background));
+        arraySanPham.add(new SanPham("123",123.0,R.drawable.ic_launcher_background));
         FloatingActionButton floatingActionButton = view.findViewById(R.id.themsanpham);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

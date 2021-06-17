@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CusTomArrayNhomSanPham;
+import com.example.doandidong.data.NhomSanPham;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,7 +59,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot doc : snapshots){
                         nhomSanPham = new NhomSanPham();
                         nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                        nhomSanPham.setImg(R.drawable.icon_delete);
+                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
                         nhomSanPham.setIdNhomSanPham(doc.getId());
                         arrayList.add(nhomSanPham);
                     }
@@ -74,7 +75,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Thêm san pham  mới", Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Thêm nhom san pham  mới", Snackbar.LENGTH_LONG)
                         .setAction("Thêm", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -126,7 +127,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot doc : snapshots){
                         nhomSanPham = new NhomSanPham();
                         nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                        nhomSanPham.setImg(R.drawable.icon_delete);
+                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
                         nhomSanPham.setIdNhomSanPham(doc.getId());
                         arrayList.add(nhomSanPham);
                     }
@@ -163,7 +164,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                                     for(QueryDocumentSnapshot doc : snapshots){
                                         nhomSanPham = new NhomSanPham();
                                         nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.icon_delete);
+                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
                                         nhomSanPham.setIdNhomSanPham(doc.getId());
                                         arrayList.add(nhomSanPham);
                                     }
@@ -195,7 +196,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                                     for(QueryDocumentSnapshot doc : snapshots){
                                         nhomSanPham = new NhomSanPham();
                                         nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.icon_delete);
+                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
                                         nhomSanPham.setIdNhomSanPham(doc.getId());
                                         arrayList.add(nhomSanPham);
                                     }

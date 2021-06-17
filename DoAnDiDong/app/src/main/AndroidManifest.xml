@@ -12,10 +12,12 @@
         <activity android:name=".OderActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".BanHangActivity" android:screenOrientation="portrait" />
         <activity android:name=".ThuChiActivity" android:screenOrientation="portrait" />
-        <activity android:name=".SanPhamActivity" android:screenOrientation="portrait" />
         <activity android:name=".ThemNhanVien" android:screenOrientation="portrait" />
         <activity android:name=".QuanLyNhanVien" android:label="@string/title_activity_quan_ly_nhan_vien" android:screenOrientation="portrait" android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
         <activity android:name=".SanPhamMoi" android:screenOrientation="portrait" />
+        <activity android:name=".NhomSanPhamActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ActivitySanPham" android:screenOrientation="portrait" />
+        <activity android:name=".NhomSanPhamMoi" android:screenOrientation="portrait" />
         <activity android:name=".LoginActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

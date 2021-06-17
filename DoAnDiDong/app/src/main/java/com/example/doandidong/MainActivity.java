@@ -1,11 +1,11 @@
 package com.example.doandidong;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,15 +39,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent = new Intent(MainActivity.this, BanHangActivity.class);
             startActivity(intent);
         }else if(v.getId() == R.id.btnThanhToan){
-            intent = new Intent(MainActivity.this, BanHangActivity.class);
+            intent = new Intent(MainActivity.this, BepBarActivity.class);
             startActivity(intent);
         }else if(v.getId() == R.id.btnThuChi){
             intent = new Intent(MainActivity.this, ThuChiActivity.class);
             startActivity(intent);
-        }else if(v.getId() == R.id.btnBepBar){
-            intent = new Intent(MainActivity.this, SanPhamActivity.class);
-            startActivity(intent);
         }
+//        else if(v.getId() == R.id.btnBepBar){
+//            intent = new Intent(MainActivity.this, SanPhamActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     int i = 0;

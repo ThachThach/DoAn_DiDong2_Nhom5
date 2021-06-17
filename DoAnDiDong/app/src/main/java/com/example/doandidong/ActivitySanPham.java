@@ -18,7 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CustomArraySanPham;
 import com.example.doandidong.data.NhomSanPham;
-import com.example.doandidong.data.Sanpham;
+
+import com.example.doandidong.data.SanPham;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,8 +36,8 @@ public class ActivitySanPham extends AppCompatActivity {
 
     private ListView listViewSanpham;
     private FirebaseFirestore firebaseFirestore;
-    private Sanpham sanpham;
-    ArrayList<Sanpham> arraySanPham;
+    private SanPham sanpham;
+    ArrayList<SanPham> arraySanPham;
     private  CollectionReference reference;
     private  CollectionReference reference1;
     private ArrayList<String> List;
@@ -61,7 +62,7 @@ public class ActivitySanPham extends AppCompatActivity {
                     arraySanPham = new ArrayList<>();
                     ArrayList<String> List1 = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : snapshots) {
-                        sanpham = new Sanpham();
+                        sanpham = new SanPham();
                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                         sanpham.setIdSanPham(doc.getId());
@@ -69,7 +70,7 @@ public class ActivitySanPham extends AppCompatActivity {
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());
-                        sanpham.setImage(R.drawable.icon_delete);
+                        sanpham.setImage(R.drawable.ic_launcher_background);
                         arraySanPham.add(sanpham);
                     }
                     CustomArraySanPham customArrayAdapter = new CustomArraySanPham(ActivitySanPham.this, R.layout.layout_item_sanpham, arraySanPham);
@@ -131,7 +132,7 @@ public class ActivitySanPham extends AppCompatActivity {
                     arraySanPham = new ArrayList<>();
                     ArrayList<String> List1 = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : snapshots) {
-                        sanpham = new Sanpham();
+                        sanpham = new SanPham();
                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                         sanpham.setIdSanPham(doc.getId());
@@ -139,7 +140,7 @@ public class ActivitySanPham extends AppCompatActivity {
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());
-                        sanpham.setImage(R.drawable.icon_delete);
+                        sanpham.setImage(R.drawable.ic_launcher_background);
                         arraySanPham.add(sanpham);
                     }
                     CustomArraySanPham customArrayAdapter = new CustomArraySanPham(ActivitySanPham.this, R.layout.layout_item_sanpham, arraySanPham);
@@ -206,7 +207,7 @@ public class ActivitySanPham extends AppCompatActivity {
                                     arraySanPham = new ArrayList<>();
                                     ArrayList<String> List1 = new ArrayList<>();
                                     for (QueryDocumentSnapshot doc : snapshots) {
-                                        sanpham = new Sanpham();
+                                        sanpham = new SanPham();
                                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                                         sanpham.setIdSanPham(doc.getId());
@@ -214,7 +215,7 @@ public class ActivitySanPham extends AppCompatActivity {
                                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                                         sanpham.setMaSanPham(doc.get("masanpham").toString());
-                                        sanpham.setImage(R.drawable.icon_delete);
+                                        sanpham.setImage(R.drawable.ic_launcher_background);
                                         arraySanPham.add(sanpham);
                                     }
                                     CustomArraySanPham customArrayAdapter = new CustomArraySanPham(ActivitySanPham.this, R.layout.layout_item_sanpham, arraySanPham);
@@ -250,7 +251,7 @@ public class ActivitySanPham extends AppCompatActivity {
                                     arraySanPham = new ArrayList<>();
                                     ArrayList<String> List1 = new ArrayList<>();
                                     for (QueryDocumentSnapshot doc : snapshots) {
-                                        sanpham = new Sanpham();
+                                        sanpham = new SanPham();
                                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                                         sanpham.setIdSanPham(doc.getId());
@@ -258,7 +259,7 @@ public class ActivitySanPham extends AppCompatActivity {
                                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                                         sanpham.setMaSanPham(doc.get("masanpham").toString());
-                                        sanpham.setImage(R.drawable.icon_delete);
+                                        sanpham.setImage(R.drawable.ic_launcher_background);
                                         arraySanPham.add(sanpham);
                                     }
                                     CustomArraySanPham customArrayAdapter = new CustomArraySanPham(ActivitySanPham.this, R.layout.layout_item_sanpham, arraySanPham);

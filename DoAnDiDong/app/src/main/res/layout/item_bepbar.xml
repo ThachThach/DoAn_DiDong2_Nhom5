@@ -2,108 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_weight="11">
+    android:orientation="vertical"
+    android:layout_weight="10">
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+       <TextView
+           android:id="@+id/thoigianoder"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           ></TextView>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
         <TextView
-            android:id="@+id/soluonghang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"></TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="10"
-        android:orientation="vertical">
-        <LinearLayout
+            android:id="@+id/danhsachoder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="1"
-              android:orientation="horizontal">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="@string/tenBan"
-                  ></TextView>
-              <TextView
-                  android:id="@+id/tenbanbepbar"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="aaa"
-                  ></TextView>
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="1"
-              android:orientation="horizontal">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="@string/tenBan"
-                  ></TextView>
-              <TextView
-                  android:id="@+id/tennguoioder"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="aa"
-                  ></TextView>
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="match_parent"
-              android:layout_weight="1"
-              android:orientation="horizontal">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="@string/tenBan"
-                  ></TextView>
-              <TextView
-                  android:id="@+id/khuvuc"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="aa"
-                  ></TextView>
-          </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tensanphamoder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                ></TextView>
-
-            <TextView
-                android:id="@+id/thoigian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-               ></TextView>
-
-        </LinearLayout>
+            ></TextView>
     </LinearLayout>
+
 
 </LinearLayout>

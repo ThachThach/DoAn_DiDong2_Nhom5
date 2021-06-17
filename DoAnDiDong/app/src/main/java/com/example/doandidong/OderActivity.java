@@ -1,10 +1,5 @@
 package com.example.doandidong;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,18 +9,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.doandidong.adapte.RecyclerViewAdapterOder;
 import com.example.doandidong.data.DanhSachSanPhamOder;
 import com.example.doandidong.data.NhanVien;
+import com.example.doandidong.data.NhomSanPham;
+import com.example.doandidong.data.SanPham;
 import com.example.doandidong.data.SanPhamOder;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,8 +57,14 @@ public class OderActivity extends AppCompatActivity {
     private RecyclerViewAdapterOder myAdapterA;
     public Button btnXong;
     private ListView listView;
+    private NhomSanPham nhomSanPham;
+    private SanPham sanPham;
+    private FirebaseFirestore firebaseFirestore;
+    private CollectionReference reference;
+    private CollectionReference reference1;
 
     ArrayList<String> tenNhom = new ArrayList<>();
+    private ArrayList<SanPhamOder> listData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,44 +81,58 @@ public class OderActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         String tenBan = bundle.getString(KEY_TEN_BAN);
         String khuVuc = bundle.getString(KEY_KHU_VUC);
-
-        tenNhom.add("Nhom 1");
-        tenNhom.add("Nhom 2");
-        tenNhom.add("nhom 3");
-
-        ArrayList<SanPhamOder> listData = new ArrayList<>();
-        listData.add(new SanPhamOder("Nhom 1","San pham 1",10000,20000));
-        listData.add(new SanPhamOder("Nhom 1","San pham 2",10000,20000));
-        listData.add(new SanPhamOder("Nhom 1","San pham 3",10000,20000));
-        listData.add(new SanPhamOder("Nhom 1","San pham 4",10000,20000));
-
-        listData.add(new SanPhamOder("Nhom 2","San pham 5",10000,20000));
-        listData.add(new SanPhamOder("Nhom 2","San pham 6",10000,20000));
-        listData.add(new SanPhamOder("Nhom 2","San pham 7",10000,20000));
-        listData.add(new SanPhamOder("Nhom 2","San pham 8",10000,20000));
-
-        listData.add(new SanPhamOder("nhom 3","San pham 7",10000,20000));
-        listData.add(new SanPhamOder("nhom 3","San pham 8",10000,20000));
-        listData.add(new SanPhamOder("nhom 3","San pham 9",10000,20000));
-        listData.add(new SanPhamOder("nhom 3","San pham 10",10000,20000));
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tenNhom);
-        listView.setAdapter(arrayAdapter);
-        recyclerView = findViewById(R.id.sanpham_list);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        reference = firebaseFirestore.collection("nhomsanpham");
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sanPhamOders = new ArrayList<>();
-                for(int i = 0; i <listData.size(); i++){
-                    if(tenNhom.get(position).equals(listData.get(i).getNhomSanPham())){
-                        sanPhamOders.add(listData.get(i));
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot snapshots = task.getResult();
+
+                    tenNhom = new ArrayList<>();
+                    for(QueryDocumentSnapshot doc : snapshots){
+                        nhomSanPham = new NhomSanPham();
+                        String name = nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
+                        tenNhom.add(name);
                     }
+                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(OderActivity.this, android.R.layout.simple_list_item_1, tenNhom);
+                    listView.setAdapter(arrayAdapter);
                 }
-                myAdapterA = new RecyclerViewAdapterOder(OderActivity.this ,sanPhamOders);
-                recyclerView.setAdapter(myAdapterA);
-                recyclerView.setLayoutManager(new LinearLayoutManager(OderActivity.this));
+            }
+        });
+        reference1 = firebaseFirestore.collection("sanpham");
+        reference1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot snapshots = task.getResult();
+
+                  listData = new ArrayList<>();
+                    for(QueryDocumentSnapshot doc : snapshots){
+                       sanPham = new SanPham();
+                       String name = sanPham.setTenSanpham(doc.get("tensanpham").toString());
+                       String nhom = sanPham.setNhomSanPham(doc.get("nhomsanpham").toString());
+                       Double von = sanPham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
+                        Double gia = sanPham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
+                        listData.add(new SanPhamOder(nhom,name,von,gia));
+                    }
+                    recyclerView = findViewById(R.id.sanpham_list);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            sanPhamOders = new ArrayList<>();
+                            for(int i = 0; i <listData.size(); i++){
+                                if(tenNhom.get(position).equals(listData.get(i).getNhomSanPham())){
+                                    sanPhamOders.add(listData.get(i));
+                                }
+                            }
+                            myAdapterA = new RecyclerViewAdapterOder(OderActivity.this ,sanPhamOders);
+                            recyclerView.setAdapter(myAdapterA);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(OderActivity.this));
+                        }
+                    });
+
+                }
             }
         });
 
@@ -128,25 +153,21 @@ public class OderActivity extends AppCompatActivity {
     }
 
     private void OderNew(String ban, String khuVuc){
-            Date date = new Date();
-            DanhSachSanPhamOder danhSachSanPhamOder1 = new DanhSachSanPhamOder(ban,khuVuc, date, sanPhamOders);
-            String id = ban+"_"+khuVuc;
+        Date date = new Date();
+        DanhSachSanPhamOder danhSachSanPhamOder1 = new DanhSachSanPhamOder(ban,khuVuc, date, sanPhamOders);
+        String id = ban+"_"+khuVuc;
 
-            mFirebaseDatabase.child(id).child(TEN_BAN).setValue(danhSachSanPhamOder1.getTenban());
-            mFirebaseDatabase.child(id).child(KHU_VUC).setValue(danhSachSanPhamOder1.getKhuVuc());
-            mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
-            for(int i =0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
-                if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
-                    String id2 = mFirebaseDatabase.push().getKey();
-                    mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
-                }
+        mFirebaseDatabase.child(id).child(TEN_BAN).setValue(danhSachSanPhamOder1.getTenban());
+        mFirebaseDatabase.child(id).child(KHU_VUC).setValue(danhSachSanPhamOder1.getKhuVuc());
+        mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
+        for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
+            if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
+                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
             }
+        }
     }
 
-
     private ArrayList<SanPham> getSanPham(){
-
-
         return null;
     }
 
@@ -176,7 +197,7 @@ public class OderActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<SanPham> getDataSanPham(){
+    private void getDataSanPham() {
         mFirebaseFirestore.collection("").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -191,8 +212,8 @@ public class OderActivity extends AppCompatActivity {
                 }
             }
         });
-    }
 
+    }
 
 }
 
@@ -202,7 +223,6 @@ public class OderActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DataSnapshot> task) {
                         if (task.isSuccessful()) {
                            String key = task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue().toString();
-
                             if (Integer.parseInt(task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue()+"") == 0){
                                 mFirebaseInstance.getInstance().getReference("bepbar").child(DANH_SACH_ODER).child(key).removeValue();
                             }
