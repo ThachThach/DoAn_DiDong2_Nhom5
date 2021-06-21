@@ -1,9 +1,7 @@
 package com.example.doandidong.fragment.banhangfragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.doandidong.LoginActivity;
 import com.example.doandidong.OderActivity;
-import com.example.doandidong.QuanLyNhanVien;
 import com.example.doandidong.R;
-import com.example.doandidong.SettingActivity;
 import com.example.doandidong.adapte.CustomBanHangAdapter;
 import com.example.doandidong.data.PhongBan;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -115,7 +110,6 @@ public class KhuVuc1Fragment extends Fragment {
                             Toast.makeText(getContext(), listPhongBan.get(i).getTenban(), Toast.LENGTH_SHORT).show();
                             bundle.putString(KEY_TEN_BAN, listPhongBan.get(i).getTenban());
                             bundle.putString(KEY_KHU_VUC, "1");
-
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }

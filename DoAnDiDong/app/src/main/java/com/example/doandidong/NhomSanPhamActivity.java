@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CusTomArrayNhomSanPham;
 import com.example.doandidong.data.NhomSanPham;
+import com.example.doandidong.data.SanPham;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,10 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     private  NhomSanPham nhomSanPham;
     private CheckBox checkBoxNhomSanPham;
     private  CollectionReference reference;
+    private  CollectionReference reference1;
     private ArrayList<NhomSanPham> listID;
+    private ArrayList<SanPham> arrayListSanPham;
+    private SanPham sanpham;
 
 
     @Override
@@ -111,31 +117,58 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     }
 
     private void remove(){
-//        Toast.makeText(this, arrayList.size()+"", Toast.LENGTH_SHORT).show();
-               for(int i = 0; i < arrayList.size(); i++ ){
-                   if (arrayList.get(i).getCheck()){
-                       reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
-                   }
-               }
-        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        reference1 = firebaseFirestore.collection("sanpham");
+        reference1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
                     QuerySnapshot snapshots = task.getResult();
-
-                    arrayList = new ArrayList<>();
-                    for(QueryDocumentSnapshot doc : snapshots){
-                        nhomSanPham = new NhomSanPham();
-                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                        arrayList.add(nhomSanPham);
+                    arrayListSanPham = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : snapshots) {
+                        sanpham = new SanPham();
+                        sanpham.setTenSanpham(doc.get("tensanpham").toString());
+                        sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
+                        sanpham.setIdSanPham(doc.getId());
+                        sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
+                        sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
+                        sanpham.setMaSanPham(doc.get("masanpham").toString());
+                        sanpham.setImage(R.drawable.ic_launcher_background);
+                        arrayListSanPham.add(sanpham);
                     }
-                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
+                    for(int i = 0; i < arrayList.size(); i++ ){
+                        if (arrayList.get(i).getCheck()) {
+                           for(int y = 0; y < arrayListSanPham.size();y++){
+                               if (arrayList.get(i).getTenNhom().equals(arrayListSanPham.get(y).getNhomSanPham())){
+                                   reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
+                                   reference1.document(arrayListSanPham.get(y).getIdSanPham()).delete();
+                                   }
+                               }
+                        }
+                    }
+                    reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                QuerySnapshot snapshots = task.getResult();
+
+                                arrayList = new ArrayList<>();
+                                for(QueryDocumentSnapshot doc : snapshots){
+                                    nhomSanPham = new NhomSanPham();
+                                    nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
+                                    nhomSanPham.setImg(R.drawable.ic_launcher_background);
+                                    nhomSanPham.setIdNhomSanPham(doc.getId());
+                                    arrayList.add(nhomSanPham);
+                                }
+                                cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
+                                listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
+                            }
+                        }
+                    });
                 }
             }
         });
+
 
     }
 

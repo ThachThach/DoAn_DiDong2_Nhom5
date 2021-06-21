@@ -60,13 +60,11 @@ public class ActivitySanPham extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     QuerySnapshot snapshots = task.getResult();
                     arraySanPham = new ArrayList<>();
-                    ArrayList<String> List1 = new ArrayList<>();
                     for (QueryDocumentSnapshot doc : snapshots) {
                         sanpham = new SanPham();
                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                         sanpham.setIdSanPham(doc.getId());
-                        sanpham.setDonVitinh(doc.get("donvitinh").toString());
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());
@@ -136,7 +134,6 @@ public class ActivitySanPham extends AppCompatActivity {
                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                         sanpham.setIdSanPham(doc.getId());
-                        sanpham.setDonVitinh(doc.get("donvitinh").toString());
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());
@@ -172,7 +169,6 @@ public class ActivitySanPham extends AppCompatActivity {
         for (int i = 0; i < arraySanPham.size(); i++) {
             if (arraySanPham.get(i).getCheckSP()) {
                 tensanpham.setText(arraySanPham.get(i).getTenSanpham());
-                donvitinh.setText(arraySanPham.get(i).getDonVitinh());
                 gia.setText(arraySanPham.get(i).getGiaSanpham()+"");
                 von.setText(arraySanPham.get(i).getVonSanPham()+"");
                 ma.setText(arraySanPham.get(i).getMaSanPham());
@@ -211,7 +207,6 @@ public class ActivitySanPham extends AppCompatActivity {
                                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                                         sanpham.setIdSanPham(doc.getId());
-                                        sanpham.setDonVitinh(doc.get("donvitinh").toString());
                                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                                         sanpham.setMaSanPham(doc.get("masanpham").toString());
@@ -255,7 +250,6 @@ public class ActivitySanPham extends AppCompatActivity {
                                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                                         sanpham.setIdSanPham(doc.getId());
-                                        sanpham.setDonVitinh(doc.get("donvitinh").toString());
                                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                                         sanpham.setMaSanPham(doc.get("masanpham").toString());

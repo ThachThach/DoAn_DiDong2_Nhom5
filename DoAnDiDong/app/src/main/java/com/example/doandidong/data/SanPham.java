@@ -4,7 +4,6 @@ public class SanPham {
     String tenSanpham;
     Double giaSanpham;
     int image;
-    String donVitinh;
     String nhomSanPham;
     Double vonSanPham;
     String maSanPham;
@@ -35,11 +34,10 @@ public class SanPham {
         this.image = image;
     }
 
-    public SanPham(String tenSanpham, Double giaSanpham, int image, String donVitinh, String nhomSanPham, Double vonSanPham, String maSanPham) {
+    public SanPham(String tenSanpham, Double giaSanpham, int image, String nhomSanPham, Double vonSanPham, String maSanPham) {
         this.tenSanpham = tenSanpham;
         this.giaSanpham = giaSanpham;
         this.image = image;
-        this.donVitinh = donVitinh;
         this.nhomSanPham = nhomSanPham;
         this.vonSanPham = vonSanPham;
         this.maSanPham = maSanPham;
@@ -69,14 +67,6 @@ public class SanPham {
 
     public void setImage(int image) {
         this.image = image;
-    }
-
-    public String getDonVitinh() {
-        return donVitinh;
-    }
-
-    public void setDonVitinh(String donVitinh) {
-        this.donVitinh = donVitinh;
     }
 
     public String getNhomSanPham() {

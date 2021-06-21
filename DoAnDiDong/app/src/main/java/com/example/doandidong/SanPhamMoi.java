@@ -33,7 +33,6 @@ public class SanPhamMoi extends AppCompatActivity {
     private SanPham sanpham;
     private EditText editTenSanPham;
     private EditText editGiaSanPham;
-    private EditText editDonViTinh;
     private EditText editVon;
     private EditText editMaSanPham;
     private Button buttonLuu;
@@ -46,7 +45,6 @@ public class SanPhamMoi extends AppCompatActivity {
 
         spin = findViewById(R.id.spinnerSanPham);
         editTenSanPham = findViewById(R.id.ediTenSanPham);
-        editDonViTinh = findViewById(R.id.editDonViTinh);
         editGiaSanPham = findViewById(R.id.editGiaSanPham);
         editVon = findViewById(R.id.editVon);
         editMaSanPham = findViewById(R.id.editMaSanPham);
@@ -80,7 +78,6 @@ public class SanPhamMoi extends AppCompatActivity {
                         Map<String, Object> item = new HashMap<>();
                         item.put("tensanpham",editTenSanPham.getText().toString());
                         item.put("giasanpham",editGiaSanPham.getText().toString());
-                        item.put("donvitinh",editDonViTinh.getText().toString());
                         item.put("nhomsanpham",spin.getSelectedItem().toString());
                         item.put("von",editVon.getText().toString());
                         item.put("masanpham",editMaSanPham.getText().toString());

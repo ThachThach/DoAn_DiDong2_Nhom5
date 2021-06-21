@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_weight="9">
+    android:layout_weight="5">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:orientation="vertical">
         <EditText
             android:id="@+id/ediTenSanPham"
@@ -16,14 +16,6 @@
             android:layout_weight="1"
             android:layout_marginLeft="20dp"
             android:hint="@string/tenmonSP"/>
-
-        <EditText
-            android:id="@+id/editDonViTinh"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/donvimonSP"
-            android:layout_marginLeft="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -32,14 +24,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/nhomSP">
             </TextView>
             <Spinner
                 android:id="@+id/spinnerSanPham"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 ></Spinner>
         </LinearLayout>
 
@@ -47,16 +39,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="30dp"
-            android:text="@string/titleSP"
-            android:background="@color/teal_700">
-        </TextView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -66,13 +50,13 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:text="@string/giabanSP"></TextView>
             <EditText
                 android:id="@+id/editGiaSanPham"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="@string/hintSo"></EditText>
         </LinearLayout>
         <LinearLayout
@@ -114,7 +98,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="vertical">
 

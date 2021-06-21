@@ -112,8 +112,8 @@ public class OderActivity extends AppCompatActivity {
                        sanPham = new SanPham();
                        String name = sanPham.setTenSanpham(doc.get("tensanpham").toString());
                        String nhom = sanPham.setNhomSanPham(doc.get("nhomsanpham").toString());
-                       Double von = sanPham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
-                        Double gia = sanPham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
+                       Double von = sanPham.setVonSanPham(Double.parseDouble(doc.get("giasanpham").toString()));
+                        Double gia = sanPham.setGiaSanpham(Double.parseDouble(doc.get("von").toString()));
                         listData.add(new SanPhamOder(nhom,name,von,gia));
                     }
                     recyclerView = findViewById(R.id.sanpham_list);
@@ -212,6 +212,18 @@ public class OderActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    private void getOder(String ban, String khuVuc){
+        Date date = new Date();
+        DanhSachSanPhamOder danhSachSanPhamOder1 = new DanhSachSanPhamOder(ban,khuVuc, date, sanPhamOders);
+
+        for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
+            if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
+
+            }
+        }
 
     }
 

@@ -1,20 +1,18 @@
 package com.example.doandidong;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.data.NhanVien;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,17 +24,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -69,10 +63,10 @@ public class ThemNhanVien extends AppCompatActivity {
         edtEmail = findViewById(R.id.edtEmail);
         edtPassword = findViewById(R.id.edtPassword);
 
-        radioGroup = findViewById(R.id.radioGroup);
         checkQuanLy = findViewById(R.id.checkQuanLy);
-        checkPhucVu = findViewById(R.id.checkBepBar);
+        checkBepBar = findViewById(R.id.checkBepBar);
         checkThuNgan = findViewById(R.id.checkThuNgan);
+        checkPhucVu = findViewById(R.id.checkPhucVu);
 
         checkBoxCaSang = findViewById(R.id.checkCaSang);
         checkBoxCaChieu = findViewById(R.id.checkCaChieu);
@@ -120,20 +114,20 @@ public class ThemNhanVien extends AppCompatActivity {
                         //Toast.makeText(ThemNhanVien.this, nv.getEmail(), Toast.LENGTH_SHORT).show();
                     }
 
-                    final String[] chucVu = {QUANLY};
+                    final String[] chucVu = {QUANLY,THUNGAN,BEPBAR,PHUCVU};
                     final String[] caLamViec = {CASANG};
 
                     btnTaoNhanVien.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
-                            if(checkThuNgan.isChecked()){
-                                chucVu[0] = THUNGAN;
-                            }else if(checkBepBar.isChecked()){
+                            if(checkBepBar.isChecked()){
                                 chucVu[0] = BEPBAR;
+                            }else if(checkThuNgan.isChecked()){
+                                chucVu[0] = THUNGAN;
                             }else if(checkQuanLy.isChecked()){
                                 chucVu[0] = QUANLY;
-                            }else{
+                            }else if(checkPhucVu.isChecked()){
                                 chucVu[0] = PHUCVU;
                             }
 
@@ -174,6 +168,9 @@ public class ThemNhanVien extends AppCompatActivity {
                                     Toast.makeText(ThemNhanVien.this, "fail!", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            Intent intent = new Intent();
+                            intent = new Intent(ThemNhanVien.this,QuanLyNhanVien.class);
+                            startActivity(intent);
                         }
                     });
                 } else {
