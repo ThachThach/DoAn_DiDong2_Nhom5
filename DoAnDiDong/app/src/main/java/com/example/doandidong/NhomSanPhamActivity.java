@@ -211,4 +211,10 @@ public class NhomSanPhamActivity extends AppCompatActivity {
             }
         }
     }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

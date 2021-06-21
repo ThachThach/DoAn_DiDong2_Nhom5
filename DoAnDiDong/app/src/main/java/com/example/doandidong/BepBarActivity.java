@@ -11,12 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CustumArrayBepBar;
 import com.example.doandidong.data.Bepbar;
+import com.example.doandidong.data.DanhSachSanPhamOder;
 import com.example.doandidong.data.SanPhamOder;
+import com.example.doandidong.data.ThuChi;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -55,10 +58,22 @@ public class BepBarActivity extends AppCompatActivity {
                     String key = snapshot.getKey();
                     Bepbar bepbar = snapshot.getValue(Bepbar.class);
                     String a = snapshot.child(DANH_SACH_ODER).getValue().toString();
-                    String b = snapshot.child(THOI_GIAN).getValue().toString();
-                    data.add(a+b);
-                    Log.d("aaa",a);
-                    Log.d("bbb",b);
+                    //String b = snapshot.child(THOI_GIAN).getValue().toString();
+
+                    String abc = "{" +
+                            "\"tongThu\": \"3000\"," +
+                            "\"tongVon\": \"3000\"," +
+                            "\"id\":\"1234\"}";
+//                    private Double tongThu;
+//                    private Double tongVon;
+//                    private String id;
+                    Gson gson = new Gson(); // khởi tạo Gson
+                    ThuChi employee = gson.fromJson(abc, ThuChi.class);
+
+                    Log.d("aaa", employee.getId());
+//                    data.add(a+b);
+                   //Log.d("aaa", "a");
+//                    Log.d("bbb",b);
 
                 }
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BepBarActivity.this, android.R.layout.simple_list_item_1, data);

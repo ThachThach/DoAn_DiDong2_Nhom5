@@ -48,14 +48,6 @@ public class QuanLyNhanVien extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-    /*    firebaseFirestore.collection("users").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) = > {
-                        console.log(`${doc.id} = > ${doc.data()}`);
-                }
-        });*/
-
-
-
         ArrayList<NhanVien> listNV = new ArrayList<NhanVien>();
         firebaseFirestore.collection("nhanvien").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
