@@ -66,7 +66,6 @@ public class ActivitySanPham extends AppCompatActivity {
                         sanpham.setTenSanpham(doc.get("tensanpham").toString());
                         sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
                         sanpham.setIdSanPham(doc.getId());
-                        sanpham.setDonVitinh(doc.get("donvitinh").toString());
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());

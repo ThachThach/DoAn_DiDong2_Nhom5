@@ -4,15 +4,15 @@ public class SanPhamOder {
     private String nhomSanPham;
     private String tenSP;
     private double giaBan;
-    private double giaLe;
+    private double giaVon;
     private double soLuong;
     private String banKhuVuc;
 
-    public SanPhamOder(String nhomSanPham,String tenSP, double giaBan, double giaLe) {
+    public SanPhamOder(String nhomSanPham,String tenSP, double giaVon, double giaBan) {
         this.nhomSanPham = nhomSanPham;
         this.tenSP = tenSP;
         this.giaBan = giaBan;
-        this.giaLe = giaLe;
+        this.giaVon = giaVon;
         this.soLuong = 0;
     }
 
@@ -20,7 +20,7 @@ public class SanPhamOder {
         this.nhomSanPham = "null";
         this.tenSP = tenSP;
         this.giaBan = 0;
-        this.giaLe = 0;
+        this.giaVon = 0;
         this.banKhuVuc = banKhuVuc;
         this.soLuong = soLuong;
     }
@@ -29,7 +29,7 @@ public class SanPhamOder {
         this.nhomSanPham = "nullssss";
         this.tenSP = "nullssss";
         this.giaBan = 0;
-        this.giaLe = 0;
+        this.giaVon = 0;
         this.banKhuVuc = banKhuVuc;
         this.soLuong = 0;
     }
@@ -53,12 +53,12 @@ public class SanPhamOder {
         this.giaBan = giaBan;
     }
 
-    public double getGiaLe() {
-        return giaLe;
+    public double getGiaVon() {
+        return giaVon;
     }
 
-    public void setGiaLe(double giaLe) {
-        this.giaLe = giaLe;
+    public void setGiaVon(double giaLe) {
+        this.giaVon = giaLe;
     }
 
     public double getSoLuong() {

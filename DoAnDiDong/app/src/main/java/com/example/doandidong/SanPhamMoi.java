@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +34,6 @@ public class SanPhamMoi extends AppCompatActivity {
     private SanPham sanpham;
     private EditText editTenSanPham;
     private EditText editGiaSanPham;
-    private EditText editDonViTinh;
     private EditText editVon;
     private EditText editMaSanPham;
     private Button buttonLuu;
@@ -46,13 +46,10 @@ public class SanPhamMoi extends AppCompatActivity {
 
         spin = findViewById(R.id.spinnerSanPham);
         editTenSanPham = findViewById(R.id.ediTenSanPham);
-        editDonViTinh = findViewById(R.id.editDonViTinh);
         editGiaSanPham = findViewById(R.id.editGiaSanPham);
         editVon = findViewById(R.id.editVon);
         editMaSanPham = findViewById(R.id.editMaSanPham);
         buttonLuu = findViewById(R.id.buttonLuuSanPham);
-
-
         firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference reference = firebaseFirestore.collection("nhomsanpham");
         CollectionReference reference1 = firebaseFirestore.collection("sanpham");
@@ -62,7 +59,7 @@ public class SanPhamMoi extends AppCompatActivity {
                 if(task.isSuccessful()){
                     QuerySnapshot snapshots = task.getResult();
                     arrayList = new ArrayList<>();
-                  List = new ArrayList<>();
+                    List = new ArrayList<>();
 
                     for(QueryDocumentSnapshot doc : snapshots){
                         nhomSanPham = new NhomSanPham();
@@ -80,15 +77,15 @@ public class SanPhamMoi extends AppCompatActivity {
                         Map<String, Object> item = new HashMap<>();
                         item.put("tensanpham",editTenSanPham.getText().toString());
                         item.put("giasanpham",editGiaSanPham.getText().toString());
-                        item.put("donvitinh",editDonViTinh.getText().toString());
                         item.put("nhomsanpham",spin.getSelectedItem().toString());
                         item.put("von",editVon.getText().toString());
                         item.put("masanpham",editMaSanPham.getText().toString());
                         reference1.add(item);
-                        Intent intent = new Intent();
-                        intent = new Intent(SanPhamMoi.this,ActivitySanPham.class);
-                        startActivity(intent);
-
+                        Toast.makeText(SanPhamMoi.this, "Đâ lưu",Toast.LENGTH_LONG).show();
+                        editTenSanPham.setText("");
+                        editGiaSanPham.setText("");
+                        editMaSanPham.setText("");
+                        editVon.setText("");
                     }
                 });
             }

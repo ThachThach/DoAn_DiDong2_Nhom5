@@ -6,6 +6,28 @@ public class NhanVien {
     private String email_admin;
     private String name;
     private String calam;
+    private String id;
+
+    public NhanVien(String name) {
+        this.name = name;
+    }
+
+    public NhanVien(String email, String chucvu, String email_admin, String name, String calam, String id) {
+        this.email = email;
+        this.chucvu = chucvu;
+        this.email_admin = email_admin;
+        this.name = name;
+        this.calam = calam;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public NhanVien(String email, String chucvu, String email_admin, String name) {
         this.email = email;

@@ -2,6 +2,7 @@ package com.example.doandidong;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,12 +21,14 @@ import com.example.doandidong.data.NhanVien;
 import com.example.doandidong.data.NhomSanPham;
 import com.example.doandidong.data.SanPham;
 import com.example.doandidong.data.SanPhamOder;
+import com.example.doandidong.data.ThuChi;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,9 +47,6 @@ public class OderActivity extends AppCompatActivity {
 
     private final static String TEN_BAN = "tenban";
     private final static String KHU_VUC = "khuvuc";
-    private final static String NHOM_SP = "nhomsanpham";
-    private final static String GIA_BAN = "giaban";
-    private final static String GIA_LE = "giale";
     private final static String TEN_SAN_PHAM = "tensanpham";
     private final static String SO_LUONG = "soluong";
     private final static String THOI_GIAN = "thoigian";
@@ -65,6 +65,9 @@ public class OderActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private CollectionReference reference;
     private CollectionReference reference1;
+    private CollectionReference reference2;
+    private ThuChi thuChi;
+    private ArrayList<ThuChi> thuChiArrayList;
 
     ArrayList<String> tenNhom = new ArrayList<>();
     private ArrayList<SanPhamOder> listData;
@@ -72,7 +75,6 @@ public class OderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oder);
-
         mFirebaseInstance = FirebaseDatabase.getInstance();
         mFirebaseDatabase = mFirebaseInstance.getReference("bepbar");
         mFirebaseFirestore = mFirebaseFirestore.getInstance();
@@ -110,12 +112,12 @@ public class OderActivity extends AppCompatActivity {
                 if(task.isSuccessful()){
                     QuerySnapshot snapshots = task.getResult();
 
-                  listData = new ArrayList<>();
+                    listData = new ArrayList<>();
                     for(QueryDocumentSnapshot doc : snapshots){
-                       sanPham = new SanPham();
-                       String name = sanPham.setTenSanpham(doc.get("tensanpham").toString());
-                       String nhom = sanPham.setNhomSanPham(doc.get("nhomsanpham").toString());
-                       Double von = sanPham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
+                        sanPham = new SanPham();
+                        String name = sanPham.setTenSanpham(doc.get("tensanpham").toString());
+                        String nhom = sanPham.setNhomSanPham(doc.get("nhomsanpham").toString());
+                        Double von = sanPham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         Double gia = sanPham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         listData.add(new SanPhamOder(nhom,name,von,gia));
                     }
@@ -156,19 +158,57 @@ public class OderActivity extends AppCompatActivity {
     }
 
     private void OderNew(String ban, String khuVuc){
+        reference2 = firebaseFirestore.collection("thuchi");
         Date date = new Date();
+        Double giavon = 0.0;
+        Double Tongban = 0.0;
+        Double Tongvon = 0.0;
+        Double giaban = 0.0;
+        SanPhamOder sanPhamOder = new SanPhamOder();
         DanhSachSanPhamOder danhSachSanPhamOder1 = new DanhSachSanPhamOder(ban,khuVuc, date, sanPhamOders);
         String id = ban+"_"+khuVuc;
 
         mFirebaseDatabase.child(id).child(TEN_BAN).setValue(danhSachSanPhamOder1.getTenban());
         mFirebaseDatabase.child(id).child(KHU_VUC).setValue(danhSachSanPhamOder1.getKhuVuc());
         mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
-
         for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
             if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
-                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
+                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
+                giaban = danhSachSanPhamOder1.getListSP().get(i).getGiaBan() * danhSachSanPhamOder1.getListSP().get(i).getSoLuong();
+                Tongban+=giaban;
+                giavon = danhSachSanPhamOder1.getListSP().get(i).getGiaVon() * danhSachSanPhamOder1.getListSP().get(i).getSoLuong();
+                Tongvon+=giavon;
             }
         }
+        Log.d("test1",Tongban+"");
+        Log.d("test2",Tongvon+"");
+        Double finalTongban = Tongban;
+        Double finalTongvon  = Tongvon;
+        reference2.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshots = task.getResult();
+                    thuChiArrayList = new ArrayList<>();
+                    ArrayList<String> List1 = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : snapshots) {
+                        thuChi = new ThuChi();
+                        Double tongthuchi = Double.parseDouble(doc.get("tongthu").toString());
+                        Double tongvon = Double.parseDouble(doc.get("tongvon").toString());
+                        String idThuChi = doc.getId();
+                        thuChiArrayList.add(new ThuChi(tongthuchi,tongvon,idThuChi));
+                    }
+
+                    for (int y = 0; y < thuChiArrayList.size(); y++){
+                        if (thuChiArrayList.get(y).getId().equals("thang"+(date.getMonth()+1))){
+                            DocumentReference contrac = reference2.document(thuChiArrayList.get(y).getId());
+                            contrac.update("tongthu",thuChiArrayList.get(y).getTongThu()+finalTongban);
+                            contrac.update("tongvon",thuChiArrayList.get(y).getTongThu()+finalTongvon);
+                        }
+                    }
+                }
+            }
+        });
     }
 
     private ArrayList<SanPham> getSanPham(){
@@ -219,19 +259,14 @@ public class OderActivity extends AppCompatActivity {
 
     }
 
+    private void getOder(String ban, String khuVuc){
+        Date date = new Date();
+        DanhSachSanPhamOder danhSachSanPhamOder1 = new DanhSachSanPhamOder(ban,khuVuc, date, sanPhamOders);
+
+        for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
+            if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
+
+            }
+        }
+    }
 }
-
-/* int finalI = i;
-                mFirebaseDatabase.child(ban+"_"+khuVuc).child(DANH_SACH_ODER).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        if (task.isSuccessful()) {
-                           String key = task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue().toString();
-                            if (Integer.parseInt(task.getResult().child(danhSachSanPhamOder1.getListSP().get(finalI).getTenSP()).child(SO_LUONG).getValue()+"") == 0){
-                                mFirebaseInstance.getInstance().getReference("bepbar").child(DANH_SACH_ODER).child(key).removeValue();
-                            }
-                        }
-                    }
-                });*/
-
-//removeSanPhamBepBar(ban, khuVuc, key,danhSachSanPhamOder1.getListSP().get(i).getTenSP());

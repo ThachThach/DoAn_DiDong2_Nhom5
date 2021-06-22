@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,9 +33,9 @@ public class NhomSanPhamMoi extends AppCompatActivity {
                 Map<String, Object> item = new HashMap<>();
                 item.put("tennhomsanpham",editText.getText().toString());
                 reference.add(item);
-                Intent intent = new Intent();
-                intent = new Intent(NhomSanPhamMoi.this,NhomSanPhamActivity.class);
-                startActivity(intent);
+//
+                Toast.makeText(NhomSanPhamMoi.this, "Đã Lưu", Toast.LENGTH_SHORT).show();
+                editText.setText("");
             }
         });
 

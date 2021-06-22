@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoAnDiDong">
-        <activity android:name=".BepBarActivity"></activity>
+        <activity android:name=".BepBarActivity" android:screenOrientation="portrait"></activity>
         <activity
             android:name=".OderActivity"
             android:screenOrientation="portrait" />
@@ -18,6 +18,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ThuChiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ThemPhongBanActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ThemNhanVien"

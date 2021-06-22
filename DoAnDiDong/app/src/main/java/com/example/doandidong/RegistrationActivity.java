@@ -58,8 +58,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         mData = FirebaseDatabase.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        //CollectionReference reference = firebaseFirestore.collection("user");
-        CollectionReference referenceNhanVien= firebaseFirestore.collection("nhanvien");
+        CollectionReference referenceNhanVien = firebaseFirestore.collection("nhanvien");
         CollectionReference referencethongtinquan = firebaseFirestore.collection("thongtinquan");
 
 
@@ -93,10 +92,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
                                 nhanvien.put("email", nv.getEmail());
                                 nhanvien.put("chucvu", nv.getChucvu());
-                                nhanvien.put("email_admin", nv.getEmail_admin());
                                 nhanvien.put("name", nv.getName());
                                 nhanvien.put("calam", nv.getCalam());
-                                thongtinquan.put("email_admin", nv.getEmail_admin());
                                 thongtinquan.put("tenquan", tenquan);
 
                                 referenceNhanVien.add(nhanvien).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

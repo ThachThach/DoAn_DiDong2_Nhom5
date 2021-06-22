@@ -3,31 +3,26 @@ package com.example.doandidong;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.doandidong.data.NhanVien;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -36,7 +31,11 @@ public class QuanLyNhanVien extends AppCompatActivity {
     private ConstraintLayout constraintLayout;
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<String> danhsachNhanVien = new ArrayList<>();
+    private ArrayList<NhanVien> danhsachNhanVien1 = new ArrayList<>();
     private ListView list;
+    private CollectionReference reference;
+    private  ArrayList<NhanVien> listNV ;
+    private NhanVien nhanVien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,21 +47,26 @@ public class QuanLyNhanVien extends AppCompatActivity {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
 
-        ArrayList<NhanVien> listNV = new ArrayList<NhanVien>();
+    /*    firebaseFirestore.collection("users").get().then((querySnapshot) => {
+                querySnapshot.forEach((doc) = > {
+                        console.log(`${doc.id} = > ${doc.data()}`);
+                }
+        });*/
+
+
         firebaseFirestore.collection("nhanvien").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
+                    listNV = new ArrayList<>();
+
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String email_admin1 = "" + document.getData().get("email_admin");
-                        String email1 = "" + document.getData().get("email");
-                        String chucvu1 = "" + document.getData().get("chucvu");
-                        String name1 = "" + document.getData().get("name");
-                        NhanVien nv = new NhanVien(email1, chucvu1, email_admin1, name1);
-                        listNV.add(nv);
+                        nhanVien = new NhanVien();
+                        nhanVien.setName(document.get("name").toString());
+                        nhanVien.setId(document.getId());
+                        listNV.add(nhanVien);
                     }
                 }
-
                 for (NhanVien nv : listNV){
                     danhsachNhanVien.add(nv.getName());
                 }
@@ -78,6 +82,7 @@ public class QuanLyNhanVien extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Intent intent = new Intent();
+
                                         intent = new Intent(QuanLyNhanVien.this, ThemNhanVien.class);
                                         startActivity(intent);
                                     }
@@ -103,7 +108,11 @@ public class QuanLyNhanVien extends AppCompatActivity {
 
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        danhsachNhanVien.remove(position);
+                                        firebaseFirestore = FirebaseFirestore.getInstance();
+                                        reference = firebaseFirestore.collection("nhanvien");
+
+
+                                        reference.document(listNV.get(position).getId()).delete();
                                         itemsAdapter.notifyDataSetChanged();
                                     }
                                 })
@@ -115,4 +124,6 @@ public class QuanLyNhanVien extends AppCompatActivity {
             }
         });
     }
+
+
 }
