@@ -1,113 +1,82 @@
 package com.example.doandidong;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.doandidong.adapte.CustumArrayBepBar;
-import com.example.doandidong.data.Bepbar;
+import com.example.doandidong.adapte.CustomArrayBepBar;
 import com.example.doandidong.data.DanhSachSanPhamOder;
 import com.example.doandidong.data.SanPhamOder;
-import com.example.doandidong.data.ThuChi;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
+import com.example.doandidong.data.item_tapped;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class BepBarActivity extends AppCompatActivity {
-    private ListView listView;
-    private ListView listView1;
-    private CustumArrayBepBar custumArrayBepBar;
-    private ArrayList<Bepbar> bepbarArrayList;
-    private SanPhamOder bepbar;
-    private final static String TEN_BAN = "tenban";
-    private final static String KHU_VUC = "khuvuc";
-    public final static String KEY_TEN_BAN = "KEY_TEN_BAN";
-    public final static String KEY_KHU_VUC = "KEY_KHU_VUC";
-    private final static String DANH_SACH_ODER = "danhsachoder";
-    private final static String THOI_GIAN = "thoigian";
-    private ArrayList<String> data;
-    private ArrayList<Bepbar> data1;
-
+    ListView listView;
+    private ArrayList<DanhSachSanPhamOder> danhSachSanPhamOders;
+    private CustomArrayBepBar mAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bepbar);
-        listView = findViewById(R.id.listViewKhuVuc);
-        listView = findViewById(R.id.listViewKhuVuc1);
-        bepbarArrayList = new ArrayList<>();
-        Query allBan = FirebaseDatabase.getInstance().getReference("bepbar");
-        allBan.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                data = new ArrayList<>();
-                bepbarArrayList = new ArrayList<>();
+        setContentView(R.layout.activity_bep_bar);
+        listView = (ListView) findViewById(R.id.listView);
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    String key = snapshot.getKey();
-                    Bepbar bepbar = snapshot.getValue(Bepbar.class);
-                    String a = snapshot.child(DANH_SACH_ODER).getValue().toString();
-                    //String b = snapshot.child(THOI_GIAN).getValue().toString();
+        mAdapter = new CustomArrayBepBar(this);
+        danhSachSanPhamOders = new ArrayList<>();
+        ArrayList<SanPhamOder> sanPhamOders1 = new ArrayList<>();
+        ArrayList<SanPhamOder> sanPhamOders2 = new ArrayList<>();
+        ArrayList<SanPhamOder> sanPhamOders3 = new ArrayList<>();
+        Date date = new Date();
 
-                    String abc = "{" +
-                            "\"tongThu\": \"3000\"," +
-                            "\"tongVon\": \"3000\"," +
-                            "\"id\":\"1234\"}";
-//                    private Double tongThu;
-//                    private Double tongVon;
-//                    private String id;
-                    Gson gson = new Gson(); // khởi tạo Gson
-                    ThuChi employee = gson.fromJson(abc, ThuChi.class);
+        sanPhamOders1.add(new SanPhamOder("cafe11", 2, "ban1_khu2"));
+        sanPhamOders1.add(new SanPhamOder("cafe12", 1, "ban1_khu2"));
+        danhSachSanPhamOders.add(new DanhSachSanPhamOder("ban1", "khu vuc2", date, sanPhamOders1));
 
-                    Log.d("aaa", employee.getId());
-//                    data.add(a+b);
-                   //Log.d("aaa", "a");
-//                    Log.d("bbb",b);
+        sanPhamOders2.add(new SanPhamOder("cafe21", 1, "ban3_khu2"));
+        sanPhamOders2.add(new SanPhamOder("cafe22", 3, "ban3_khu2"));
+        sanPhamOders2.add(new SanPhamOder("cafe23", 3, "ban3_khu2"));
+        sanPhamOders2.add(new SanPhamOder("cafe24", 2, "ban3_khu2"));
+        danhSachSanPhamOders.add(new DanhSachSanPhamOder("ban2", "khu vuc2", date, sanPhamOders2));
 
-                }
-                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(BepBarActivity.this, android.R.layout.simple_list_item_1, data);
-                listView.setAdapter(arrayAdapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        custumArrayBepBar = new CustumArrayBepBar(BepBarActivity.this,R.layout.item_bepbar,data1);
-//                        listView1.setAdapter(custumArrayBepBar);
-                    }
-                });
+        sanPhamOders3.add(new SanPhamOder("cafe31", 1, "ban3_1"));
+        danhSachSanPhamOders.add(new DanhSachSanPhamOder("ban3", "khu vuc2", date, sanPhamOders3));
 
+        for (int i = 0; i < danhSachSanPhamOders.size(); i++) {
+            SanPhamOder sp = new SanPhamOder(danhSachSanPhamOders.get(i).getTenban() + "_" + danhSachSanPhamOders.get(i).getKhuVuc());
+            mAdapter.addSectionHeaderItem(sp);
+            for (int j = 0; j < danhSachSanPhamOders.get(i).getListSP().size(); j++) {
+                mAdapter.addItem(danhSachSanPhamOders.get(i).getListSP().get(j));
             }
+        }
 
+        listView.setAdapter(mAdapter);
+        ArrayList<item_tapped> item_tappeds = new ArrayList<>();
+        viTriTapped(item_tappeds);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onCancelled(DatabaseError error) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for (int i = 0; i < danhSachSanPhamOders.size(); i++) {
+                    if (position == item_tappeds.get(i).getViTri()) {
+                        Log.d("Test" , "aaaaaaa"+position);
+                    }
+                }
             }
         });
     }
-//    private void getListsanphamoder(){
-//        Query allOder = FirebaseDatabase.getInstance().getReference("bepbar");
-//        allOder.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-//                for (DataSnapshot data : snapshot.getChildren()){
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+
+    private void viTriTapped(ArrayList<item_tapped> item_tappeds) {
+        int a = 0;
+        for (int i = 0; i < danhSachSanPhamOders.size(); i++) {
+            item_tappeds.add(new item_tapped(danhSachSanPhamOders.get(i).getTenban() + "_" + danhSachSanPhamOders.get(i).getKhuVuc(), a));
+            a += danhSachSanPhamOders.get(i).getListSP().size() + 1;
+        }
+    }
 }

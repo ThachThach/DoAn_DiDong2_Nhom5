@@ -44,6 +44,9 @@ public class OderActivity extends AppCompatActivity {
 
     private final static String TEN_BAN = "tenban";
     private final static String KHU_VUC = "khuvuc";
+    private final static String NHOM_SP = "nhomsanpham";
+    private final static String GIA_BAN = "giaban";
+    private final static String GIA_LE = "giale";
     private final static String TEN_SAN_PHAM = "tensanpham";
     private final static String SO_LUONG = "soluong";
     private final static String THOI_GIAN = "thoigian";
@@ -160,9 +163,10 @@ public class OderActivity extends AppCompatActivity {
         mFirebaseDatabase.child(id).child(TEN_BAN).setValue(danhSachSanPhamOder1.getTenban());
         mFirebaseDatabase.child(id).child(KHU_VUC).setValue(danhSachSanPhamOder1.getKhuVuc());
         mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
+
         for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
             if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
-                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
+                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
             }
         }
     }

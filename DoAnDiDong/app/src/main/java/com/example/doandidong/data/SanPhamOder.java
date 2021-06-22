@@ -6,12 +6,31 @@ public class SanPhamOder {
     private double giaBan;
     private double giaLe;
     private double soLuong;
+    private String banKhuVuc;
 
     public SanPhamOder(String nhomSanPham,String tenSP, double giaBan, double giaLe) {
         this.nhomSanPham = nhomSanPham;
         this.tenSP = tenSP;
         this.giaBan = giaBan;
         this.giaLe = giaLe;
+        this.soLuong = 0;
+    }
+
+    public SanPhamOder(String tenSP, double soLuong, String banKhuVuc) {
+        this.nhomSanPham = "null";
+        this.tenSP = tenSP;
+        this.giaBan = 0;
+        this.giaLe = 0;
+        this.banKhuVuc = banKhuVuc;
+        this.soLuong = soLuong;
+    }
+
+    public SanPhamOder(String banKhuVuc) {
+        this.nhomSanPham = "nullssss";
+        this.tenSP = "nullssss";
+        this.giaBan = 0;
+        this.giaLe = 0;
+        this.banKhuVuc = banKhuVuc;
         this.soLuong = 0;
     }
 
@@ -56,5 +75,13 @@ public class SanPhamOder {
 
     public void setNhomSanPham(String nhomSanPham) {
         this.nhomSanPham = nhomSanPham;
+    }
+
+    public String getBanKhuVuc() {
+        return banKhuVuc;
+    }
+
+    public void setBanKhuVuc(String banKhuVuc) {
+        this.banKhuVuc = banKhuVuc;
     }
 }
