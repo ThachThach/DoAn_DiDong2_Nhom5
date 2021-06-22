@@ -14,10 +14,13 @@ import androidx.fragment.app.Fragment;
 
 import com.example.doandidong.OderActivity;
 import com.example.doandidong.R;
+import com.example.doandidong.ThemPhongBanActivity;
 import com.example.doandidong.adapte.CustomBanHangAdapter;
 import com.example.doandidong.data.PhongBan;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -117,7 +120,23 @@ public class KhuVuc1Fragment extends Fragment {
                 }
             }
         });
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.themBanKhuvuc1);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Thêm bàn mới", Snackbar.LENGTH_LONG)
+                        .setAction("Thêm", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent;
+                                intent = new Intent(getContext(), ThemPhongBanActivity.class);
+                                startActivity(intent);
+                            }
+                        }).show();
+            }
+        });
 
         return view;
-    }
+    };
 }
+

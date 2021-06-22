@@ -16,6 +16,7 @@
         <activity android:name=".QuanLyNhanVien" android:label="@string/title_activity_quan_ly_nhan_vien" android:screenOrientation="portrait" android:theme="@style/Theme.DoAnDiDong.NoActionBar" />
         <activity android:name=".SanPhamMoi" android:screenOrientation="portrait" />
         <activity android:name=".NhomSanPhamActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ThemPhongBanActivity" android:screenOrientation="portrait" />
         <activity android:name=".ActivitySanPham" android:screenOrientation="portrait" />
         <activity android:name=".NhomSanPhamMoi" android:screenOrientation="portrait" />
         <activity android:name=".LoginActivity" android:screenOrientation="portrait">

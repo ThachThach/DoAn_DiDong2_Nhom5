@@ -53,30 +53,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nhomsanpham);
         listViewNhomSanPham  = findViewById(R.id.list_item_nhomsanpham);
         checkBoxNhomSanPham = findViewById(R.id.checkNhomsanpham);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        reference = firebaseFirestore.collection("nhomsanpham");
-        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    QuerySnapshot snapshots = task.getResult();
-
-                    arrayList = new ArrayList<>();
-                    for(QueryDocumentSnapshot doc : snapshots){
-                        nhomSanPham = new NhomSanPham();
-                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                        arrayList.add(nhomSanPham);
-                    }
-                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                }
-            }
-        });
-
-
-
+        getData();
         FloatingActionButton floatingActionButton = findViewById(R.id.themnhomsanpham);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,25 +123,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                                }
                         }
                     }
-                    reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()){
-                                QuerySnapshot snapshots = task.getResult();
-
-                                arrayList = new ArrayList<>();
-                                for(QueryDocumentSnapshot doc : snapshots){
-                                    nhomSanPham = new NhomSanPham();
-                                    nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                    nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                                    nhomSanPham.setIdNhomSanPham(doc.getId());
-                                    arrayList.add(nhomSanPham);
-                                }
-                                cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                                listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                            }
-                        }
-                    });
+                    getData();
                 }
             }
         });
@@ -173,7 +132,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     }
 
     private void update(){
-        reference = firebaseFirestore.collection("nhomsanpham");
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View customLayout = inflater.inflate(R.layout.dailong_updatenhomsanpham, null);
@@ -187,25 +146,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                 builder.setNegativeButton("Thoat", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot snapshots = task.getResult();
-
-                                    arrayList = new ArrayList<>();
-                                    for(QueryDocumentSnapshot doc : snapshots){
-                                        nhomSanPham = new NhomSanPham();
-                                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                                        arrayList.add(nhomSanPham);
-                                    }
-                                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                                }
-                            }
-                        });
+                        getData();
                         dialog.dismiss();
                     }
                 });
@@ -219,29 +160,35 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                                 contrac.update("tennhomsanpham",textupdatenhomsanpham.getText().toString());
                             }
                         }
-                        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot snapshots = task.getResult();
-
-                                    arrayList = new ArrayList<>();
-                                    for(QueryDocumentSnapshot doc : snapshots){
-                                        nhomSanPham = new NhomSanPham();
-                                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                                        arrayList.add(nhomSanPham);
-                                    }
-                                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                                }
-                            }
-                        });
+                      getData();
                     }
                 });
                 builder.create().show();
             }
         }
+    }
+
+    public void getData(){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        reference = firebaseFirestore.collection("nhomsanpham");
+        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    QuerySnapshot snapshots = task.getResult();
+                    arrayList = new ArrayList<>();
+                    for(QueryDocumentSnapshot doc : snapshots){
+                        nhomSanPham = new NhomSanPham();
+                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
+                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
+                        nhomSanPham.setIdNhomSanPham(doc.getId());
+                        arrayList.add(nhomSanPham);
+                    }
+                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
+                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
+                }
+            }
+        });
+
     }
 }

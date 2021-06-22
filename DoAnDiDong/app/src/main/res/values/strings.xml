@@ -29,5 +29,11 @@
     <string name="menuThem">Add</string>
     <string name="editNhom">Nhóm:</string>
     <string name="tenBan">Bàn:</string>
+    <string name="tenBanOder">Tên bàn</string>
+    <string name="khuVuc">Khu Vực</string>
+    <string name="khuVuc1">Khu Vực 1</string>
+    <string name="khuVuc2">Khu Vực 2 </string>
+    <string name="khuVuc3">Khu Vực 3</string>
+
 
 </resources>

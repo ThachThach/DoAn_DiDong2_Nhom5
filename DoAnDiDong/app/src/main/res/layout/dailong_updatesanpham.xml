@@ -3,11 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_weight="9">
+    android:layout_weight="7">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4"
+        android:layout_weight="2"
         android:orientation="vertical">
         <EditText
             android:id="@+id/ediTenSanPhamupdate"
@@ -17,13 +17,6 @@
             android:layout_marginLeft="20dp"
             android:hint="@string/tenmonSP"/>
 
-        <EditText
-            android:id="@+id/editDonViTinhupdate"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:hint="@string/donvimonSP"
-            android:layout_marginLeft="20dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"

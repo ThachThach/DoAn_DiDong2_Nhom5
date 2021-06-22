@@ -49,8 +49,6 @@ public class SanPhamMoi extends AppCompatActivity {
         editVon = findViewById(R.id.editVon);
         editMaSanPham = findViewById(R.id.editMaSanPham);
         buttonLuu = findViewById(R.id.buttonLuuSanPham);
-
-
         firebaseFirestore = FirebaseFirestore.getInstance();
         CollectionReference reference = firebaseFirestore.collection("nhomsanpham");
         CollectionReference reference1 = firebaseFirestore.collection("sanpham");
