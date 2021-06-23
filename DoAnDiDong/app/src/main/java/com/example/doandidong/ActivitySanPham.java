@@ -36,9 +36,9 @@ public class ActivitySanPham extends AppCompatActivity {
 
     private ListView listViewSanpham;
     private FirebaseFirestore firebaseFirestore;
+    private  CollectionReference reference;
     private SanPham sanpham;
     ArrayList<SanPham> arraySanPham;
-    private  CollectionReference reference;
     private  CollectionReference reference1;
     private ArrayList<String> List;
     private  NhomSanPham nhomSanPham;
@@ -96,7 +96,7 @@ public class ActivitySanPham extends AppCompatActivity {
     }
 
     public void delete() {
-//
+
         getData();
 
         for (int i = 0; i < arraySanPham.size(); i++) {

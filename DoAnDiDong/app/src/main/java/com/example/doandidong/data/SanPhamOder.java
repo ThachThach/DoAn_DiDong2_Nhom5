@@ -8,7 +8,12 @@ public class SanPhamOder {
     private double soLuong;
     private String banKhuVuc;
 
-    public SanPhamOder(String nhomSanPham,String tenSP, double giaVon, double giaBan) {
+    public SanPhamOder(double giaBan, double giaVon) {
+        this.giaBan = giaBan;
+        this.giaVon = giaVon;
+    }
+
+    public SanPhamOder(String nhomSanPham, String tenSP, double giaVon, double giaBan) {
         this.nhomSanPham = nhomSanPham;
         this.tenSP = tenSP;
         this.giaBan = giaBan;

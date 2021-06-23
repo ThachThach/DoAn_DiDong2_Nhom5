@@ -46,14 +46,6 @@ public class QuanLyNhanVien extends AppCompatActivity {
         constraintLayout = findViewById(R.id.menuCoontext);
 
         firebaseFirestore = FirebaseFirestore.getInstance();
-
-    /*    firebaseFirestore.collection("users").get().then((querySnapshot) => {
-                querySnapshot.forEach((doc) = > {
-                        console.log(`${doc.id} = > ${doc.data()}`);
-                }
-        });*/
-
-
         firebaseFirestore.collection("nhanvien").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

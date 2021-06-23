@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail, edtPassword;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
+
     DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mFirebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();

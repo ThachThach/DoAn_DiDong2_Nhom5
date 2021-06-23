@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +29,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -94,11 +93,11 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     }
 
     private void remove(){
-        firebaseFirestore = FirebaseFirestore.getInstance();
+
         reference1 = firebaseFirestore.collection("sanpham");
         reference1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+            public void onComplete( Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     QuerySnapshot snapshots = task.getResult();
                     arrayListSanPham = new ArrayList<>();
@@ -110,21 +109,27 @@ public class NhomSanPhamActivity extends AppCompatActivity {
                         sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
                         sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
                         sanpham.setMaSanPham(doc.get("masanpham").toString());
-                        sanpham.setImage(R.drawable.hinhanh);
                         arrayListSanPham.add(sanpham);
                     }
                     for(int i = 0; i < arrayList.size(); i++ ){
                         if (arrayList.get(i).getCheck()) {
-                            for(int y = 0; y < arrayListSanPham.size();y++){
-                                if (arrayList.get(i).getTenNhom().equals(arrayListSanPham.get(y).getNhomSanPham())){
-                                    reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
-                                    reference1.document(arrayListSanPham.get(y).getIdSanPham()).delete();
+                            if(arrayListSanPham.size() > 0){
+                                for(int y = 0; y < arrayListSanPham.size();y++){
+                                    Log.d("test",arrayListSanPham.get(y).getNhomSanPham());
+                                    if (arrayList.get(i).getTenNhom().equals(arrayListSanPham.get(y).getNhomSanPham())){
+                                        Log.d("test",arrayList.get(i).getIdNhomSanPham().toString());
+                                        reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
+                                        reference1.document(arrayListSanPham.get(y).getIdSanPham()).delete();
+                                    }
                                 }
                             }
+                                reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
+
                         }
                     }
-                    getData();
+
                 }
+                getData();
             }
         });
 
@@ -132,7 +137,6 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     }
 
     private void update(){
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         View customLayout = inflater.inflate(R.layout.dailong_updatenhomsanpham, null);
