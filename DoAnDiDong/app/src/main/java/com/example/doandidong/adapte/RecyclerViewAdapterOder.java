@@ -40,9 +40,10 @@ public class RecyclerViewAdapterOder extends RecyclerView.Adapter<RecyclerViewAd
         holder.btnCong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listData.get(position).setSoLuong(listData.get(position).getSoLuong()+1);
-                holder.lblSoLuong.setText((listData.get(position).getSoLuong())+"");
-
+                if(listData.get(position).getSoLuong() != 30) {
+                    listData.get(position).setSoLuong(listData.get(position).getSoLuong() + 1);
+                    holder.lblSoLuong.setText((listData.get(position).getSoLuong()) + "");
+                }
             }
         });
 

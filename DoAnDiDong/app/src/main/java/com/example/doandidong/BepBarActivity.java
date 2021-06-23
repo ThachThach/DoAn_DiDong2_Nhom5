@@ -140,4 +140,70 @@ public class BepBarActivity extends AppCompatActivity {
             a += danhSachSanPhamOders.get(i).getListSP().size() + 1;
         }
     }
+
+    private void load(){
+        allBan.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String tenBan = "";
+                String khuVuc = "";
+                danhSachSanPhamOders = new ArrayList<>();
+                //Log.d("Test", danhSachSanPhamOders.size()+"");
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    String gio = snapshot.child(THOI_GIAN).child(HOURS).getValue() + "";
+                    String phut = snapshot.child(THOI_GIAN).child(MINUTES).getValue() + "";
+                    String giay = snapshot.child(THOI_GIAN).child(SECONDS).getValue() + "";
+                    String ngay = snapshot.child(THOI_GIAN).child(DATE).getValue() + "";
+                    String thang = snapshot.child(THOI_GIAN).child(MONTH).getValue() + "";
+                    String nam = (Integer.parseInt(snapshot.child(THOI_GIAN).child(YEAR).getValue() + "")+1900)+"";
+
+
+                    //
+                    tenBan = snapshot.child(TEN_BAN).getValue()+"";
+                    khuVuc = snapshot.child(KHU_VUC).getValue()+"";
+
+
+
+                    ArrayList<SanPhamOder> sanPham = new ArrayList<>();
+                    for (DataSnapshot snap: snapshot.child(DANH_SACH_ODER).getChildren()){
+                        Double soLuong = Double.parseDouble(snap.getValue()+"");
+                        sanPham.add(new SanPhamOder(snap.getKey(), soLuong, tenBan +"_" + khuVuc));
+                    }
+                    String sDate = ngay+"-"+thang+"-"+nam+" "+gio+":"+phut+":"+giay;
+
+                    SimpleDateFormat formatter4 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+                    Date date = new Date();
+                    try {
+                        date = formatter4.parse(sDate);
+                        //Log.d("Test", date+"");
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    DanhSachSanPhamOder danhSachSanPhamOder = new DanhSachSanPhamOder(tenBan, khuVuc, date, sanPham);
+                    danhSachSanPhamOders.add(danhSachSanPhamOder);
+                }
+
+                for (int i = 0; i < danhSachSanPhamOders.size(); i++) {
+                    SanPhamOder sp = new SanPhamOder(danhSachSanPhamOders.get(i).getTenban() + "_" + danhSachSanPhamOders.get(i).getKhuVuc());
+
+                    mAdapter.addSectionHeaderItem(sp);
+                    for (int j = 0; j < danhSachSanPhamOders.get(i).getListSP().size(); j++) {
+                        mAdapter.addItem(danhSachSanPhamOders.get(i).getListSP().get(j));
+                    }
+                }
+
+                listView.setAdapter(mAdapter);
+                ArrayList<item_tapped> item_tappeds = new ArrayList<>();
+                viTriTapped(item_tappeds);
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

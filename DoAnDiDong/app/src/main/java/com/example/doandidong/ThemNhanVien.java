@@ -95,12 +95,12 @@ public class ThemNhanVien extends AppCompatActivity {
                 mFirebaseAuth = FirebaseAuth.getInstance();
 
                 if(email.isEmpty()){
-                    edtEmail.setError("Plese enter email id");
-                    edtEmail.requestFocus();
+                    Toast.makeText(ThemNhanVien.this,"Hãy nhập Email!", Toast.LENGTH_LONG).show();
                 }else if(pass.isEmpty()){
-                    edtPassword.setError("Plese enter your password");
-                    edtPassword.requestFocus();
-                }else if(email.isEmpty() && pass.isEmpty()){
+                    Toast.makeText(ThemNhanVien.this,"Hãy nhập password!", Toast.LENGTH_LONG).show();
+                } else if(edtTenNhanVien.getText().toString().isEmpty()){
+                    Toast.makeText(ThemNhanVien.this,"Hãy nhập tên nhân viên!", Toast.LENGTH_LONG).show();
+                } else if(email.isEmpty() && pass.isEmpty()){
                     Toast.makeText(ThemNhanVien.this,"Fialdssss Are Empty!", Toast.LENGTH_LONG).show();
                 }else if(!(email.isEmpty() && pass.isEmpty())){
 
@@ -158,6 +158,12 @@ public class ThemNhanVien extends AppCompatActivity {
                                     Toast.makeText(ThemNhanVien.this, "fail!", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                            edtEmail.setText("");
+                            edtPassword.setText("");
+                            edtTenNhanVien.setText("");
+                            checkBoxCaChieu.setChecked(false);
+                            checkBoxCaSang.setChecked(false);
+                            checkBoxCaToi.setChecked(false);
                         }
                     });}else {
                     Toast.makeText(ThemNhanVien.this,"Error Occurred!", Toast.LENGTH_LONG).show();

@@ -67,27 +67,46 @@ public class SanPhamMoi extends AppCompatActivity {
                         List.add(name);
 
                     }
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(SanPhamMoi.this,R.layout.support_simple_spinner_dropdown_item,List);
-                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
-                    spin.setAdapter(adapter);
-                }
-                buttonLuu.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Map<String, Object> item = new HashMap<>();
-                        item.put("tensanpham",editTenSanPham.getText().toString());
-                        item.put("giasanpham",editGiaSanPham.getText().toString());
-                        item.put("nhomsanpham",spin.getSelectedItem().toString());
-                        item.put("von",editVon.getText().toString());
-                        item.put("masanpham",editMaSanPham.getText().toString());
-                        reference1.add(item);
-                        Toast.makeText(SanPhamMoi.this, "Đâ lưu",Toast.LENGTH_LONG).show();
-                        editTenSanPham.setText("");
-                        editGiaSanPham.setText("");
-                        editMaSanPham.setText("");
-                        editVon.setText("");
+                    if(List.size() != 0) {
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(SanPhamMoi.this, R.layout.support_simple_spinner_dropdown_item, List);
+                        adapter.setDropDownViewResource(android.R.layout.simple_list_item_multiple_choice);
+                        spin.setAdapter(adapter);
+
+                        buttonLuu.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (editTenSanPham.getText().toString().isEmpty()) {
+                                    Toast.makeText(SanPhamMoi.this, "chưa nhập tên!", Toast.LENGTH_LONG).show();
+                                }else if(editGiaSanPham.getText().toString().isEmpty()) {
+                                    Toast.makeText(SanPhamMoi.this, "chưa nhập giá!", Toast.LENGTH_LONG).show();
+                                }else if(spin.getSelectedItem().toString().isEmpty()) {
+                                    Toast.makeText(SanPhamMoi.this, "chưa chọn nhóm sản phẩm!", Toast.LENGTH_LONG).show();
+                                }else if(editVon.getText().toString().isEmpty()) {
+                                    Toast.makeText(SanPhamMoi.this, "chưa nhập giá vốn!", Toast.LENGTH_LONG).show();
+                                }else if(editMaSanPham.getText().toString().isEmpty()) {
+                                    Toast.makeText(SanPhamMoi.this, "chưa nhập mã sản phẩm!", Toast.LENGTH_LONG).show();
+                                }else {
+                                    Map<String, Object> item = new HashMap<>();
+                                    item.put("tensanpham", editTenSanPham.getText().toString());
+                                    item.put("giasanpham", editGiaSanPham.getText().toString());
+                                    item.put("nhomsanpham", spin.getSelectedItem().toString());
+                                    item.put("von", editVon.getText().toString());
+                                    item.put("masanpham", editMaSanPham.getText().toString());
+                                    reference1.add(item);
+                                    Toast.makeText(SanPhamMoi.this, "Đâ lưu", Toast.LENGTH_LONG).show();
+                                    editTenSanPham.setText("");
+                                    editGiaSanPham.setText("");
+                                    editMaSanPham.setText("");
+                                    editVon.setText("");
+                                }
+                            }
+                        });
                     }
-                });
+                    else{
+                        Toast.makeText(SanPhamMoi.this, "chưa có nhóm sản phẩm!", Toast.LENGTH_LONG).show();
+                    }
+                }
+
             }
         });
     }

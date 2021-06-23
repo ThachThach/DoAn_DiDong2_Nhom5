@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.doandidong.adapte.CusTomArrayNhomSanPham;
 import com.example.doandidong.data.NhomSanPham;
+import com.example.doandidong.data.SanPham;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,6 +28,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,10 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     private  NhomSanPham nhomSanPham;
     private CheckBox checkBoxNhomSanPham;
     private  CollectionReference reference;
+    private  CollectionReference reference1;
     private ArrayList<NhomSanPham> listID;
+    private ArrayList<SanPham> arrayListSanPham;
+    private SanPham sanpham;
 
 
     @Override
@@ -47,30 +53,7 @@ public class NhomSanPhamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nhomsanpham);
         listViewNhomSanPham  = findViewById(R.id.list_item_nhomsanpham);
         checkBoxNhomSanPham = findViewById(R.id.checkNhomsanpham);
-        firebaseFirestore = FirebaseFirestore.getInstance();
-        reference = firebaseFirestore.collection("nhomsanpham");
-        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    QuerySnapshot snapshots = task.getResult();
-
-                    arrayList = new ArrayList<>();
-                    for(QueryDocumentSnapshot doc : snapshots){
-                        nhomSanPham = new NhomSanPham();
-                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                        arrayList.add(nhomSanPham);
-                    }
-                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                }
-            }
-        });
-
-
-
+        getData();
         FloatingActionButton floatingActionButton = findViewById(R.id.themnhomsanpham);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,18 +94,88 @@ public class NhomSanPhamActivity extends AppCompatActivity {
     }
 
     private void remove(){
-//        Toast.makeText(this, arrayList.size()+"", Toast.LENGTH_SHORT).show();
-               for(int i = 0; i < arrayList.size(); i++ ){
-                   if (arrayList.get(i).getCheck()){
-                       reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
-                   }
-               }
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        reference1 = firebaseFirestore.collection("sanpham");
+        reference1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    QuerySnapshot snapshots = task.getResult();
+                    arrayListSanPham = new ArrayList<>();
+                    for (QueryDocumentSnapshot doc : snapshots) {
+                        sanpham = new SanPham();
+                        sanpham.setTenSanpham(doc.get("tensanpham").toString());
+                        sanpham.setNhomSanPham(doc.get("nhomsanpham").toString());
+                        sanpham.setIdSanPham(doc.getId());
+                        sanpham.setVonSanPham(Double.parseDouble(doc.get("von").toString()));
+                        sanpham.setGiaSanpham(Double.parseDouble(doc.get("giasanpham").toString()));
+                        sanpham.setMaSanPham(doc.get("masanpham").toString());
+                        sanpham.setImage(R.drawable.hinhanh);
+                        arrayListSanPham.add(sanpham);
+                    }
+                    for(int i = 0; i < arrayList.size(); i++ ){
+                        if (arrayList.get(i).getCheck()) {
+                            for(int y = 0; y < arrayListSanPham.size();y++){
+                                if (arrayList.get(i).getTenNhom().equals(arrayListSanPham.get(y).getNhomSanPham())){
+                                    reference.document(arrayList.get(i).getIdNhomSanPham()).delete();
+                                    reference1.document(arrayListSanPham.get(y).getIdSanPham()).delete();
+                                }
+                            }
+                        }
+                    }
+                    getData();
+                }
+            }
+        });
+
+
+    }
+
+    private void update(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View customLayout = inflater.inflate(R.layout.dailong_updatenhomsanpham, null);
+        builder.setView(customLayout);
+        EditText textupdatenhomsanpham = customLayout.findViewById(R.id.edtupdatenhomsanpham);
+
+        for(int i = 0; i<arrayList.size();i++){
+            if (arrayList.get(i).getCheck()){
+                textupdatenhomsanpham.setText(arrayList.get(i).getTenNhom());
+
+                builder.setNegativeButton("Thoat", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getData();
+                        dialog.dismiss();
+                    }
+                });
+                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        for (int i = 0;i<arrayList.size();i++){
+                            if (arrayList.get(i).getCheck()){
+                                DocumentReference contrac = reference.document(arrayList.get(i).getIdNhomSanPham());
+                                contrac.update("tennhomsanpham",textupdatenhomsanpham.getText().toString());
+                            }
+                        }
+                        getData();
+                    }
+                });
+                builder.create().show();
+            }
+        }
+    }
+
+    public void getData(){
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        reference = firebaseFirestore.collection("nhomsanpham");
         reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     QuerySnapshot snapshots = task.getResult();
-
                     arrayList = new ArrayList<>();
                     for(QueryDocumentSnapshot doc : snapshots){
                         nhomSanPham = new NhomSanPham();
@@ -137,84 +190,5 @@ public class NhomSanPhamActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void update(){
-        reference = firebaseFirestore.collection("nhomsanpham");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        View customLayout = inflater.inflate(R.layout.dailong_updatenhomsanpham, null);
-        builder.setView(customLayout);
-        EditText textupdatenhomsanpham = customLayout.findViewById(R.id.edtupdatenhomsanpham);
-
-        for(int i = 0; i<arrayList.size();i++){
-            if (arrayList.get(i).getCheck()){
-                textupdatenhomsanpham.setText(arrayList.get(i).getTenNhom());
-
-                builder.setNegativeButton("Thoat", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot snapshots = task.getResult();
-
-                                    arrayList = new ArrayList<>();
-                                    for(QueryDocumentSnapshot doc : snapshots){
-                                        nhomSanPham = new NhomSanPham();
-                                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                                        arrayList.add(nhomSanPham);
-                                    }
-                                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                                }
-                            }
-                        });
-                        dialog.dismiss();
-                    }
-                });
-                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        for (int i = 0;i<arrayList.size();i++){
-                            if (arrayList.get(i).getCheck()){
-                                DocumentReference contrac = reference.document(arrayList.get(i).getIdNhomSanPham());
-                                contrac.update("tennhomsanpham",textupdatenhomsanpham.getText().toString());
-                            }
-                        }
-                        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if(task.isSuccessful()){
-                                    QuerySnapshot snapshots = task.getResult();
-
-                                    arrayList = new ArrayList<>();
-                                    for(QueryDocumentSnapshot doc : snapshots){
-                                        nhomSanPham = new NhomSanPham();
-                                        nhomSanPham.setTenNhom(doc.get("tennhomsanpham").toString());
-                                        nhomSanPham.setImg(R.drawable.ic_launcher_background);
-                                        nhomSanPham.setIdNhomSanPham(doc.getId());
-                                        arrayList.add(nhomSanPham);
-                                    }
-                                    cusTomArrayNhomSanPham = new CusTomArrayNhomSanPham(NhomSanPhamActivity.this,R.layout.item_nhomsanpham,arrayList);
-                                    listViewNhomSanPham.setAdapter(cusTomArrayNhomSanPham);
-                                }
-                            }
-                        });
-                    }
-                });
-                builder.create().show();
-            }
-        }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

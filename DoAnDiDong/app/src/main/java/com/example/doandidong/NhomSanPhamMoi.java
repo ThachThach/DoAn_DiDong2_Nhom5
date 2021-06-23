@@ -31,11 +31,14 @@ public class NhomSanPhamMoi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Map<String, Object> item = new HashMap<>();
-                item.put("tennhomsanpham",editText.getText().toString());
-                reference.add(item);
-//
-                Toast.makeText(NhomSanPhamMoi.this, "Đã Lưu", Toast.LENGTH_SHORT).show();
-                editText.setText("");
+                if (editText.getText().toString().isEmpty()){
+                    Toast.makeText(NhomSanPhamMoi.this, "Hãy nhập tên nhóm!", Toast.LENGTH_SHORT).show();
+                }else {
+                    item.put("tennhomsanpham", editText.getText().toString());
+                    reference.add(item);
+                    Toast.makeText(NhomSanPhamMoi.this, "Đã Lưu", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                }
             }
         });
 

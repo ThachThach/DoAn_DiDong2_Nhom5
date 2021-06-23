@@ -173,7 +173,7 @@ public class OderActivity extends AppCompatActivity {
         mFirebaseDatabase.child(id).child(THOI_GIAN).setValue(Calendar.getInstance().getTime());
         for(int i = 0; i < danhSachSanPhamOder1.getListSP().size(); i++) {
             if(danhSachSanPhamOder1.getListSP().get(i).getSoLuong() >= 0) {
-                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).child(SO_LUONG).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
+                mFirebaseDatabase.child(id).child(DANH_SACH_ODER).child(danhSachSanPhamOder1.getListSP().get(i).getTenSP()).setValue(danhSachSanPhamOder1.getListSP().get(i).getSoLuong());
                 giaban = danhSachSanPhamOder1.getListSP().get(i).getGiaBan() * danhSachSanPhamOder1.getListSP().get(i).getSoLuong();
                 Tongban+=giaban;
                 giavon = danhSachSanPhamOder1.getListSP().get(i).getGiaVon() * danhSachSanPhamOder1.getListSP().get(i).getSoLuong();

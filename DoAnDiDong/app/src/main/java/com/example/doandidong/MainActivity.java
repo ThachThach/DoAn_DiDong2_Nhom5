@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnThanhToanTaiQuay = findViewById(R.id.btnThanhToan);
         btnThuChi = findViewById(R.id.btnThuChi);
         btnBepBar = findViewById(R.id.btnBepBar);
+
         btnCaiDat.setOnClickListener(this);
         btnBanHang.setOnClickListener(this);
-        btnThanhToanTaiQuay.setOnClickListener(this);
+        //btnThanhToanTaiQuay.setOnClickListener(this);
         btnThuChi.setOnClickListener(this);
         btnBepBar.setOnClickListener(this);
     }
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }else if(v.getId() == R.id.btnBanHang){
             intent = new Intent(MainActivity.this, BanHangActivity.class);
             startActivity(intent);
-        }else if(v.getId() == R.id.btnThanhToan){
-            intent = new Intent(MainActivity.this, BepBarActivity.class);
-            startActivity(intent);
+//        }else if(v.getId() == R.id.btnThanhToan){
+//            intent = new Intent(MainActivity.this, BepBarActivity.class);
+//            startActivity(intent);
         }else if(v.getId() == R.id.btnThuChi){
             intent = new Intent(MainActivity.this, ThuChiActivity.class);
             startActivity(intent);
